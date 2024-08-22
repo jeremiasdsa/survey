@@ -18,19 +18,38 @@
 
 
 // index.js
+//
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import './index.css';
+// import App from './App';
+// import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+//
+// ReactDOM.render(
+//     <React.StrictMode>
+//         <App />
+//     </React.StrictMode>,
+//     document.getElementById('root')
+// );
+//
+// // Ativar o service worker para suporte offline
+// serviceWorkerRegistration.register();
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
     <React.StrictMode>
         <App />
-    </React.StrictMode>,
-    document.getElementById('root')
+    </React.StrictMode>
 );
 
+reportWebVitals();
 // Ativar o service worker para suporte offline
 serviceWorkerRegistration.register();

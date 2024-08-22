@@ -3,6 +3,9 @@
 import React, { useEffect, useState } from 'react';
 // import { database } from '../firebase';
 
+import { ref, push } from 'firebase/database';
+import {database} from "../firebase";
+
 const SyncStatus = () => {
     const [isOnline, setIsOnline] = useState(navigator.onLine);
 

@@ -1,5 +1,20 @@
 import React, { useState } from 'react';
-// import { database } from '../firebase';
+import { ref, push } from 'firebase/database';
+import {database} from "../firebase";
+
+// const database = getDatabase();
+
+// import { getDatabase, ref, set } from "firebase/database";
+
+// function writeUserData(userId, name, email, imageUrl) {
+//     // const db = getDatabase();
+//     push(ref(database, 'surveys'), {
+//         username: name,
+//         email: email,
+//         profile_picture : imageUrl
+//     });
+// }
+
 
 const SurveyForm = ({ researcherName }) => {
     const [neighborhood, setNeighborhood] = useState('');
@@ -17,8 +32,11 @@ const SurveyForm = ({ researcherName }) => {
             timestamp: Date.now(),
         };
 
+        push(ref(database, 'surveys'), newSurvey);
+
+
         // database.ref('surveys').push(newSurvey);
-        console.log('newSurvey', newSurvey);
+
     };
 
     return (
