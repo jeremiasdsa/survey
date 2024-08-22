@@ -4,7 +4,7 @@
   },
   "hosting": {
     "site": "survey-brasil",
-    "public": "public",
+    "public": "build",
     "ignore": [
       "firebase.json",
       "**/.*",
