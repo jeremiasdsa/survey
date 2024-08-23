@@ -8,14 +8,14 @@ const isLocalhost = Boolean(
 );
 
 export function register(config) {
-    if ('serviceWorker' in navigator) {
-        const publicUrl = new URL('http://localhost:3000', window.location.href);
+    if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+        const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
         if (publicUrl.origin !== window.location.origin) {
             return;
         }
 
         window.addEventListener('load', () => {
-            const swUrl = `${'http://localhost:3000'}/service-worker.js`;
+            const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
             if (isLocalhost) {
                 checkValidServiceWorker(swUrl, config);
