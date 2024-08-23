@@ -331,5 +331,4 @@ fabric.properties
 junit.xml
 
 # local deployment related
-deploy.sh
-jsrfm.toml
+build
