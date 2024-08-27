@@ -2,11 +2,6 @@ import React, { useState } from 'react';
 import { ref, push } from 'firebase/database';
 import {database} from "../firebase";
 
-
-const presenceRef = ref(db, "disconnectmessage");
-// Write a string when this client loses connection
-onDisconnect(presenceRef).set("I disconnected!");
-
 // const database = getDatabase();
 
 // import { getDatabase, ref, set } from "firebase/database";
