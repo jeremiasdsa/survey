@@ -8,7 +8,6 @@ const SurveyForm = ({ researcherName }) => {
     const [mayorChoice, setMayorChoice] = useState('');
     const [councilorChoice, setCouncilorChoice] = useState('');
 
-    // Reference a specific document (by ID) in a collection
     const handleSave = async () => {
         try {
             await setDoc(doc(database, `/surveys/${crypto.randomUUID()}`), {
@@ -17,7 +16,7 @@ const SurveyForm = ({ researcherName }) => {
                 street,
                 mayorChoice,
                 councilorChoice,
-                timestamp: Date.now(),
+                createdAt: new Date(),
             });
             console.log("Document successfully written!");
         } catch (err) {
