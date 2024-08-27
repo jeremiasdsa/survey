@@ -1,20 +1,6 @@
 import React, { useState } from 'react';
-import { ref, push } from 'firebase/database';
-import {database} from "../firebase";
-
-// const database = getDatabase();
-
-// import { getDatabase, ref, set } from "firebase/database";
-
-// function writeUserData(userId, name, email, imageUrl) {
-//     // const db = getDatabase();
-//     push(ref(database, 'surveys'), {
-//         username: name,
-//         email: email,
-//         profile_picture : imageUrl
-//     });
-// }
-
+import { doc, setDoc } from "firebase/firestore";
+import { database } from "../firebase";
 
 const SurveyForm = ({ researcherName }) => {
     const [neighborhood, setNeighborhood] = useState('');
@@ -22,21 +8,21 @@ const SurveyForm = ({ researcherName }) => {
     const [mayorChoice, setMayorChoice] = useState('');
     const [councilorChoice, setCouncilorChoice] = useState('');
 
-    const handleSave = () => {
-        const newSurvey = {
-            researcher: researcherName,
-            neighborhood,
-            street,
-            mayorChoice,
-            councilorChoice,
-            timestamp: Date.now(),
-        };
-
-        push(ref(database, 'surveys'), newSurvey);
-
-
-        // database.ref('surveys').push(newSurvey);
-
+    // Reference a specific document (by ID) in a collection
+    const handleSave = async () => {
+        try {
+            await setDoc(doc(database, `/surveys/${crypto.randomUUID()}`), {
+                researcher: researcherName,
+                neighborhood,
+                street,
+                mayorChoice,
+                councilorChoice,
+                timestamp: Date.now(),
+            });
+            console.log("Document successfully written!");
+        } catch (err) {
+            console.error("Error writing document: ", err);
+        }
     };
 
     return (

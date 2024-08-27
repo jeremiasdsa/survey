@@ -29,7 +29,6 @@
 import React, { useState } from 'react';
 import Login from './components/Login';
 import SurveyForm from './components/SurveyForm';
-import SyncStatus from './components/SyncStatus';
 
 function App() {
   const [researcherName, setResearcherName] = useState('');
@@ -44,7 +43,6 @@ function App() {
         {researcherName ? (
             <>
               <SurveyForm researcherName={researcherName} />
-              <SyncStatus />
             </>
         ) : (
             <Login onLogin={handleLogin} />
