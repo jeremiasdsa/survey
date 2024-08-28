@@ -5,6 +5,7 @@ import SyncStatus from './components/SyncStatus';
 import { database } from "./firebase";
 import { ref, push } from 'firebase/database';
 
+
 // Função para abrir o banco de dados e garantir que a object store seja criada
 function openDatabase() {
   return new Promise((resolve, reject) => {

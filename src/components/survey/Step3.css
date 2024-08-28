@@ -1,0 +1,86 @@
+/* Step3.css */
+
+.step3 {
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.step3 h4 {
+    margin-bottom: 10px;
+    font-size: 1.4em; /* Aumenta o tamanho da fonte para destaque */
+    color: #fff;
+}
+
+.search-input {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 12px; /* Bordas mais arredondadas */
+    border: 2px solid #ffa500; /* Destaque em laranja */
+    width: 90%;
+    align-self: center;
+    font-size: 1em; /* Aumenta o tamanho da fonte para melhor legibilidade */
+}
+
+.candidate-vereador-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Duas colunas de candidatos */
+    gap: 15px; /* Espaçamento entre os cartões */
+    overflow-y: auto;
+    flex-grow: 1;
+    padding-bottom: 10px;
+}
+
+.candidate-vereador-card {
+    background-color: #222; /* Fundo mais escuro para os cartões */
+    border-radius: 15px;
+    padding: 15px;
+    width: 100px; /* Largura maior */
+    height: 80px; /* Altura ajustada */
+    cursor: pointer;
+    transition: transform 0.2s;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para dar destaque */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.candidate-vereador-card.selected {
+    border: 3px solid #4CAF50; /* Borda verde quando selecionado */
+    transform: scale(1.05);
+}
+
+.candidate-vereador-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 10px; /* Centraliza e adiciona margem inferior */
+    position: relative;
+}
+
+.candidate-vereador-number {
+    position: absolute;
+    top: 10px; /* Posiciona na parte superior */
+    left: 10px; /* Posiciona na parte superior esquerda */
+    width: 40px;
+    height: 40px;
+    background-color: #ff0000; /* Vermelho padrão, será sobrescrito inline */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.candidate-vereador-info {
+    font-size: 0.8em;
+    color: #fff;
+    text-transform: capitalize;
+}

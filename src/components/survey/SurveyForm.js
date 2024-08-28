@@ -6,6 +6,7 @@ import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 
+
 function openDatabase() {
     return new Promise((resolve, reject) => {
         const request = indexedDB.open("offlineDataDB", 1);
@@ -88,7 +89,7 @@ const SurveyForm = ({ researcherName }) => {
         };
 
         // Salvar localmente no IndexedDB
-        saveDataLocally(newSurvey);
+        saveDataLocally(newSurvey); //
 
         // Tentar salvar no Firebase (sincronizado automaticamente quando a conexão for restabelecida)
         push(ref(database, 'surveys'), newSurvey)
