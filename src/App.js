@@ -1,37 +1,65 @@
-// import React from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-//
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-//
-// export default App;
+import React, { useState, useEffect } from 'react';
+import Login from './components/login/Login';
+import SurveyForm from './components/survey/SurveyForm';
+import SyncStatus from './components/SyncStatus';
+import { database } from "./firebase";
+import { openDatabase } from "./storage";
+import { ref, push } from 'firebase/database';
 
+// Função para sincronizar dados do IndexedDB com o Firebase
+function syncDataWithFirebase() {
+  openDatabase().then(db => {
+    const transaction = db.transaction("dataStore", "readonly");
+    const store = transaction.objectStore("dataStore");
 
-import React, { useState } from 'react';
-import Login from './components/Login';
-import SurveyForm from './components/SurveyForm';
+    const allData = store.getAll();
+    allData.onsuccess = function() {
+      allData.result.forEach(data => {
+        if(!data.synced) {
+          push(ref(database, 'surveys'), data).catch(error => {
+            console.error("Erro ao sincronizar com o Firebase:", error);
+          });
+        }
+      });
+
+      // Limpar os dados da IndexedDB após a sincronização
+      const clearTransaction = db.transaction("dataStore", "readwrite");
+      const clearStore = clearTransaction.objectStore("dataStore");
+      clearStore.clear();
+      console.log("Dados sincronizados e IndexedDB limpo.");
+    };
+
+    allData.onerror = function(event) {
+      console.error("Erro ao recuperar dados da IndexedDB:", event.target.errorCode);
+    };
+  }).catch(error => {
+    console.error("Erro ao abrir o IndexedDB:", error);
+  });
+}
 
 function App() {
   const [researcherName, setResearcherName] = useState('');
+
+  // Sincronizar dados ao carregar o aplicativo se estiver online
+  useEffect(() => {
+    if (navigator.onLine) {
+      syncDataWithFirebase();
+    } else {
+      console.log("Dispositivo offline, sincronização adiada.");
+    }
+
+    // Adicionar um listener para tentar sincronizar quando a conexão for restabelecida
+    const handleOnline = () => {
+      console.log("Conexão restabelecida, tentando sincronizar...");
+      syncDataWithFirebase();
+    };
+
+    window.addEventListener('online', handleOnline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+    };
+  }, []);
 
   const handleLogin = (name, pin) => {
     // Validação de PIN pode ser adicionada aqui
@@ -43,6 +71,7 @@ function App() {
         {researcherName ? (
             <>
               <SurveyForm researcherName={researcherName} />
+              <SyncStatus />
             </>
         ) : (
             <Login onLogin={handleLogin} />

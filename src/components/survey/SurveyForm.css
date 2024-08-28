@@ -1,0 +1,103 @@
+/* SurveyForm.css */
+
+/* Estilo para o container do formulário */
+.survey-form {
+    /*max-width: 300px;*/
+    margin: 0 auto;
+    /*padding: 20px;*/
+    /*border-radius: 20px;*/
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Tema Claro */
+.survey-form.light {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+/* Tema Escuro */
+.survey-form.dark {
+    background-color: #000;
+    color: #fff;
+}
+
+/* Estilo para os títulos */
+.survey-form h4 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+/* Estilo para os campos de entrada de texto */
+.survey-form input[type="text"] {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+/* Estilo para campos com erro */
+.survey-form input[type="text"].error {
+    border-color: red;
+}
+
+/* Estilo para o grupo de botões */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Estilo para botões */
+.survey-form button {
+    flex: 1;
+    padding: 10px;
+    margin: 0 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.survey-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Estilo para a mensagem de feedback */
+.survey-form p.feedback-message {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+/* Texto de erro */
+.survey-form p.feedback-message.error {
+    color: red;
+}
+
+/* Texto de sucesso */
+.survey-form p.feedback-message.success {
+    color: green;
+}
+
+/* Estilo para o botão de alternância de tema */
+.theme-toggle {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.theme-toggle button {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 0.9em;
+    padding: 5px;
+}
