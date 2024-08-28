@@ -62,8 +62,8 @@ const councilorOptions = [
     { nome: "VITORINHA", partido: "UNIÃO", numero: 44444, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
     { nome: "WALDILEA", partido: "REDE", numero: 18100, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
     { nome: "ZÉ PEREIRA", partido: "UNIÃO", numero: 44000, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
-    { nome: "isaac_coelhinho", partido: "", numero: "", image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
-    { nome: "Nulo", partido: "", numero: "", image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
+    { nome: "BRANCO", partido: "", numero: "", image: `${process.env.PUBLIC_URL}/branco.png` },
+    { nome: "Nulo", partido: "", numero: "", image: `${process.env.PUBLIC_URL}/branco.png` },
 ];
 
 export default councilorOptions;
@@ -89,14 +89,14 @@ const mayorOptions = [
         nome: "isaac_coelhinho",
         partido: "",
         numero: "",
-        imagem: `${process.env.PUBLIC_URL}/isaac_coelhinho.png`,
+        imagem: `${process.env.PUBLIC_URL}/branco.png`,
         cor: "#ffffff"  // isaac_coelhinho para opção isaac_coelhinho
     },
     {
         nome: "Nulo",
         partido: "",
         numero: "",
-        imagem: `${process.env.PUBLIC_URL}/isaac_coelhinho.png`,
+        imagem: `${process.env.PUBLIC_URL}/branco.png`,
         cor: "#ffffff"  // isaac_coelhinho para opção Nulo
     }
 ];

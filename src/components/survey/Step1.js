@@ -1,8 +1,9 @@
 import React from 'react';
+import './Step1.css';
 
 const Step1 = ({ neighborhood, setNeighborhood, street, setStreet, isError }) => {
     return (
-        <div className="location-step">
+        <div className="step1">
             <h4>Informações da Localização</h4>
             <input
                 type="text"
