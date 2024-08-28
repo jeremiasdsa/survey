@@ -2,7 +2,9 @@
 
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, onDisconnect } from "firebase/database";
+import { getDatabase } from "firebase/database";
+import { initializeFirestore, persistentLocalCache } from "firebase/firestore";
+
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -25,5 +27,8 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
+const fireDb = initializeFirestore(app, {
+    localCache: persistentLocalCache()
+});
 
-export { analytics, database };
+export { analytics, database, fireDb };

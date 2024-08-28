@@ -1,42 +1,19 @@
 import React, { useState } from 'react';
 import { ref, push } from 'firebase/database';
-import { database } from "../../firebase";
+import { setDoc, doc } from 'firebase/firestore';
+import {database, fireDb} from "../../firebase";
+import {openDatabase} from '../../storage'
 import './SurveyForm.css';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 
-function openDatabase() {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open("offlineDataDB", 1);
-
-        request.onupgradeneeded = function(event) {
-            const db = event.target.result;
-            if (!db.objectStoreNames.contains("dataStore")) {
-                db.createObjectStore("dataStore", { autoIncrement: true });
-                console.log("Object store 'dataStore' criada com sucesso.");
-            }
-        };
-
-        request.onsuccess = function(event) {
-            resolve(event.target.result);
-        };
-
-        request.onerror = function(event) {
-            reject(event.target.errorCode);
-        };
-    });
-}
-
-function saveDataLocally(data) {
-    openDatabase().then(db => {
-        const transaction = db.transaction("dataStore", "readwrite");
-        const store = transaction.objectStore("dataStore");
-        store.add(data);
-        console.log("Dados salvos localmente no IndexedDB.");
-    }).catch(error => {
-        console.error("Erro ao abrir o IndexedDB:", error);
-    });
+const updateDataLocally = async (data, synced) => {
+    const db = await openDatabase();
+    const transaction = db.transaction("dataStore", "readwrite");
+    const store = transaction.objectStore("dataStore");
+    store.put({...data, synced});
+    console.log("Dados salvos localmente no IndexedDB.");
 }
 
 const SurveyForm = ({ researcherName }) => {
@@ -71,36 +48,41 @@ const SurveyForm = ({ researcherName }) => {
         setFeedbackMessage('');
     };
 
-    const handleSave = () => {
-        if (!councilorChoice) {
-            setFeedbackMessage('Por favor, selecione um candidato a vereador.');
-            setIsError(true);
-            return;
-        }
-
-        const newSurvey = {
-            researcher: researcherName,
-            neighborhood,
-            street,
-            mayorChoice,
-            councilorChoice,
-            timestamp: Date.now(),
-        };
-
-        // Salvar localmente no IndexedDB
-        saveDataLocally(newSurvey);
-
-        // Tentar salvar no Firebase (sincronizado automaticamente quando a conexão for restabelecida)
-        push(ref(database, 'surveys'), newSurvey)
-            .then(() => {
-                setFeedbackMessage('Dados salvos com sucesso no Firebase.');
-                setIsError(false);
-            })
-            .catch(error => {
-                setFeedbackMessage('Erro ao salvar no Firebase. Os dados serão sincronizados automaticamente quando a conexão for restabelecida.');
+    const handleSave = async () => {
+        try {
+            if (!councilorChoice) {
+                setFeedbackMessage('Por favor, selecione um candidato a vereador.');
                 setIsError(true);
-                console.error("Erro ao salvar no Firebase:", error);
-            });
+                return;
+            }
+
+            const newSurvey = {
+                id: crypto.randomUUID(),
+                researcher: researcherName,
+                neighborhood,
+                street,
+                mayorChoice,
+                councilorChoice,
+                timestamp: Date.now(),
+            };
+
+            // Salvar localmente no IndexedDB
+            await updateDataLocally(newSurvey, false);
+            // Tentar salvar no Firebase (sincronizado automaticamente quando a conexão for restabelecida)
+            await push(ref(database, 'surveys'), newSurvey);
+            await updateDataLocally(newSurvey, true);
+            setFeedbackMessage('Dados salvos com sucesso no Firebase.');
+            setIsError(false);
+
+            await setDoc(doc(fireDb, `/surveys/${newSurvey.id}`), newSurvey);
+            console.log("Document successfully written!");
+        } catch (err) {
+            console.error("Error writing document: ", err);
+
+            setFeedbackMessage('Erro ao salvar no Firebase. Os dados serão sincronizados automaticamente quando a conexão for restabelecida.');
+            setIsError(true);
+            console.error("Erro ao salvar no Firebase:", err);
+        }
     };
 
     const toggleTheme = () => {

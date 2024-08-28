@@ -3,30 +3,8 @@ import Login from './components/login/Login';
 import SurveyForm from './components/survey/SurveyForm';
 import SyncStatus from './components/SyncStatus';
 import { database } from "./firebase";
+import { openDatabase } from "./storage";
 import { ref, push } from 'firebase/database';
-
-// Função para abrir o banco de dados e garantir que a object store seja criada
-function openDatabase() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open("offlineDataDB", 1);
-
-    request.onupgradeneeded = function(event) {
-      const db = event.target.result;
-      if (!db.objectStoreNames.contains("dataStore")) {
-        db.createObjectStore("dataStore", { autoIncrement: true });
-        console.log("Object store 'dataStore' criada com sucesso.");
-      }
-    };
-
-    request.onsuccess = function(event) {
-      resolve(event.target.result);
-    };
-
-    request.onerror = function(event) {
-      reject(event.target.errorCode);
-    };
-  });
-}
 
 // Função para sincronizar dados do IndexedDB com o Firebase
 function syncDataWithFirebase() {
@@ -37,9 +15,11 @@ function syncDataWithFirebase() {
     const allData = store.getAll();
     allData.onsuccess = function() {
       allData.result.forEach(data => {
-        push(ref(database, 'surveys'), data).catch(error => {
-          console.error("Erro ao sincronizar com o Firebase:", error);
-        });
+        if(!data.synced) {
+          push(ref(database, 'surveys'), data).catch(error => {
+            console.error("Erro ao sincronizar com o Firebase:", error);
+          });
+        }
       });
 
       // Limpar os dados da IndexedDB após a sincronização
