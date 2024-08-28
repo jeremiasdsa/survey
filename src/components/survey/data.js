@@ -1,7 +1,7 @@
 // data.js
 
 // Lista de candidatos a vereador
-export const councilorOptions = [
+const councilorOptions = [
     { nome: "ADINAEL CABELEIREIRO", partido: "PV", numero: 43333 },
     { nome: "ADRIANA SINTAXE", partido: "REDE", numero: 18500 },
     { nome: "ANA LAUREANO", partido: "PSD", numero: 55789 },
@@ -67,7 +67,7 @@ export const councilorOptions = [
 ];
 
 // Lista de candidatos a prefeito
-export const mayorOptions = [
+const mayorOptions = [
     {
         nome: "CLAUDIO RÉGIS",
         partido: "PP",
@@ -97,3 +97,5 @@ export const mayorOptions = [
         cor: "#ffffff"  // Branco para opção Nulo
     }
 ];
+
+export {mayorOptions, councilorOptions};

@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './Login.css'; // Importa o CSS específico para o componente
+import { doc, getDoc } from "firebase/firestore";
+import {fireDb} from '../../firebase'
+import {allowedUsers} from "../../data";
 
 const Login = ({ onLogin }) => {
     const [name, setName] = useState('');
     const [pin, setPin] = useState('');
     const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Validação aprimorada
@@ -18,6 +21,32 @@ const Login = ({ onLogin }) => {
             setError('O PIN deve ter pelo menos 4 dígitos.');
             return;
         }
+
+        try {
+            if (allowedUsers[name] && allowedUsers[name].pass === pin) {
+                setError('');
+                onLogin(name, pin);
+            } else {
+                const user = await getDoc(doc(fireDb, "users", name));
+                if (!user.exists() || user.data()?.password !== pin) {
+                    setError('Usuario ou senha invalidos');
+                    return;
+                }
+            }
+        } catch (err) {
+            console.error(err);
+        }
+
+        // const connectedRef = ref(database, 'users');
+        // onValue(connectedRef, (snapshot) => {
+        //     console.log(snapshot.val()?.[name]?.['password'])
+        //     if(snapshot.val()?.[name]?.['password'] !== pin) {
+        //         setError('Usuario ou senha invalidos');
+        //         console.log('validou senhas e deu erro', {pin, dbPin:snapshot.val()?.[name]?.['password']})
+        //         return rej();
+        //     }
+        //     return res();
+        // });
 
         // Limpar erros ao submeter com sucesso
         setError('');
