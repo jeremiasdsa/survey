@@ -2,6 +2,14 @@ import React from 'react';
 import './Step2.css';
 import { mayorOptions } from './data';
 
+function toTitleCase(str) {
+    return str
+        .toLowerCase() // Converte tudo para minúsculas
+        .split(' ') // Divide a string em palavras
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitaliza a primeira letra de cada palavra
+        .join(' '); // Junta as palavras novamente com espaço
+}
+
 const Step2 = ({ mayorChoice, setMayorChoice }) => {
     const handleSelect = (nome) => {
         setMayorChoice(nome);
@@ -19,7 +27,7 @@ const Step2 = ({ mayorChoice, setMayorChoice }) => {
                     >
                         <img src={candidate.imagem} alt={candidate.nome} className="candidate-image" />
                         <div className="candidate-info">
-                            <p>{candidate.nome}</p>
+                            <p>{toTitleCase(candidate.nome)}</p>
                         </div>
                         {candidate.numero && (
                             <div

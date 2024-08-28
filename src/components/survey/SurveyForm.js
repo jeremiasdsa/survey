@@ -124,13 +124,13 @@ const SurveyForm = ({ researcherName }) => {
             )}
 
             <div className="button-group">
-                {step > 1 && <button onClick={handlePrevious}>Anterior</button>}
-                {step < 3 && <button onClick={handleNext}>Próximo</button>}
-                {step === 3 && <button onClick={handleSave}>Salvar</button>}
+                {step > 1 && <button onClick={handlePrevious} aria-label="Voltar para o passo anterior">Anterior</button>}
+                {step < 3 && <button onClick={handleNext} aria-label="Ir para o próximo passo">Próximo</button>}
+                {step === 3 && <button onClick={handleSave} aria-label="Salvar a pesquisa">Salvar</button>}
             </div>
 
             {feedbackMessage && (
-                <p className={`feedback-message ${isError ? 'error' : 'success'}`}>
+                <p className={`feedback-message ${isError ? 'error' : 'success'}`} aria-live="assertive">
                     {feedbackMessage}
                 </p>
             )}

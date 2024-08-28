@@ -1,5 +1,14 @@
 // data.js
-
+const partidoCores = {
+    PV: "#00FF00",
+    REDE: "#FF4500",
+    PSD: "#FFD700",
+    PT: "#FF0000",
+    PP: "#0000FF",
+    UNIÃO: "#1E90FF",
+    Branco: "#FFFFFF",
+    Nulo: "#808080"
+};
 // Lista de candidatos a vereador
 const councilorOptions = [
     { nome: "ADINAEL CABELEIREIRO", partido: "PV", numero: 43333, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
@@ -21,10 +30,10 @@ const councilorOptions = [
     { nome: "EDU GONÇALVES", partido: "PP", numero: 11456, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
     { nome: "ENEIDE CONSELHEIRA", partido: "PT", numero: 13223, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
     { nome: "FILHINHO DO CAIXÃO", partido: "UNIÃO", numero: 44888, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
-    { nome: "ISAAC COELHINHO", partido: "PP", numero: 11789, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png`, cor: "#1e90ff" },
+    { nome: "ISAAC COELHINHO", partido: "PP", numero: 11789, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
     { nome: "JAILSON PÉ DE SERROTE", partido: "UNIÃO", numero: 44111, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
     { nome: "JAILSON CELULAR", partido: "REDE", numero: 18777, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
-    { nome: "JANDUY", partido: "REDE", numero: 18000, image: `${process.env.PUBLIC_URL}/janduy_serafim.png`, cor: "#ff0000" },
+    { nome: "JANDUY", partido: "REDE", numero: 18000, image: `${process.env.PUBLIC_URL}/janduy_serafim.png` },
     { nome: "JESSYCA DE BAÚ", partido: "PSD", numero: 55345, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
     { nome: "JOÃOZINHO DO POVO", partido: "UNIÃO", numero: 44400, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
     { nome: "JOELMA FEITOSA", partido: "REDE", numero: 18666, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
@@ -66,7 +75,6 @@ const councilorOptions = [
     { nome: "Nulo", partido: "", numero: "", image: `${process.env.PUBLIC_URL}/branco.png` },
 ];
 
-export default councilorOptions;
 
 
 // Lista de candidatos a prefeito
@@ -101,4 +109,5 @@ const mayorOptions = [
     }
 ];
 
-export {mayorOptions, councilorOptions};
+
+export {mayorOptions, councilorOptions, partidoCores};

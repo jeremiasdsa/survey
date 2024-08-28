@@ -101,3 +101,18 @@
     font-size: 0.9em;
     padding: 5px;
 }
+
+
+.feedback-message.error {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.feedback-message.success {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.button-group button {
+    margin-right: 10px;
+}
