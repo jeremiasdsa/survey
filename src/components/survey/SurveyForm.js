@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { ref, push } from 'firebase/database';
 import { setDoc, doc } from 'firebase/firestore';
-import {database, fireDb} from "../../firebase";
-import {openDatabase} from '../../storage'
+import { database, fireDb } from "../../firebase";
+import { openDatabase } from '../../storage';
 import './SurveyForm.css';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
+import Review from './Review';
 
 const updateDataLocally = async (data, synced) => {
     const db = await openDatabase();
     const transaction = db.transaction("dataStore", "readwrite");
     const store = transaction.objectStore("dataStore");
-    store.put({...data, synced});
+    store.put({ ...data, synced });
     console.log("Dados salvos localmente no IndexedDB.");
 }
 
@@ -37,6 +38,11 @@ const SurveyForm = ({ researcherName }) => {
             setIsError(true);
             return;
         }
+        if (step === 3 && !councilorChoice) {
+            setFeedbackMessage('Por favor, selecione um candidato a vereador.');
+            setIsError(true);
+            return;
+        }
         setIsError(false);
         setFeedbackMessage('');
         setStep(step + 1);
@@ -48,14 +54,8 @@ const SurveyForm = ({ researcherName }) => {
         setFeedbackMessage('');
     };
 
-    const handleSave = async () => {
+    const handleConfirm = async () => {
         try {
-            if (!councilorChoice) {
-                setFeedbackMessage('Por favor, selecione um candidato a vereador.');
-                setIsError(true);
-                return;
-            }
-
             const newSurvey = {
                 id: crypto.randomUUID(),
                 researcher: researcherName,
@@ -68,25 +68,42 @@ const SurveyForm = ({ researcherName }) => {
 
             // Salvar localmente no IndexedDB
             await updateDataLocally(newSurvey, false);
-            // Tentar salvar no Firebase (sincronizado automaticamente quando a conexão for restabelecida)
+
+            // Tentar salvar no Firebase Realtime Database
             await push(ref(database, 'surveys'), newSurvey);
+            console.log("Dados salvos no Realtime.");
+
+            // Atualizar o status de sincronização localmente
             await updateDataLocally(newSurvey, true);
+
+            // Salvar no Firestore
+            await setDoc(doc(fireDb, `surveys/${newSurvey.id}`), newSurvey);
+
+            console.log("Dados salvos no Firestore.");
+
             setFeedbackMessage('Dados salvos com sucesso no Firebase.');
             setIsError(false);
 
-            await setDoc(doc(fireDb, `/surveys/${newSurvey.id}`), newSurvey);
-            console.log("Document successfully written!");
+            // Redirecionar para iniciar uma nova pesquisa
+            resetForm();
         } catch (err) {
-            console.error("Error writing document: ", err);
-
+            console.error("Erro ao salvar os dados:", err);
             setFeedbackMessage('Erro ao salvar no Firebase. Os dados serão sincronizados automaticamente quando a conexão for restabelecida.');
             setIsError(true);
-            console.error("Erro ao salvar no Firebase:", err);
+            resetForm();
         }
     };
 
+    const resetForm = () => {
+        setNeighborhood('');
+        setStreet('');
+        setMayorChoice('');
+        setCouncilorChoice('');
+        setStep(1);
+    };
+
     const toggleTheme = () => {
-        setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+        setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
     };
 
     return (
@@ -123,10 +140,21 @@ const SurveyForm = ({ researcherName }) => {
                 />
             )}
 
+            {step === 4 && (
+                <Review
+                    neighborhood={neighborhood}
+                    street={street}
+                    mayorChoice={mayorChoice}
+                    councilorChoice={councilorChoice}
+                    onConfirm={handleConfirm}
+                    onEdit={handlePrevious}
+                />
+            )}
+
             <div className="button-group">
-                {step > 1 && <button onClick={handlePrevious} aria-label="Voltar para o passo anterior">Anterior</button>}
-                {step < 3 && <button onClick={handleNext} aria-label="Ir para o próximo passo">Próximo</button>}
-                {step === 3 && <button onClick={handleSave} aria-label="Salvar a pesquisa">Salvar</button>}
+                {step > 1 && step < 4 && <button onClick={handlePrevious}>Anterior</button>}
+                {step < 3 && <button onClick={handleNext}>Próximo</button>}
+                {step === 3 && <button onClick={handleNext}>Revisar Respostas</button>}
             </div>
 
             {feedbackMessage && (

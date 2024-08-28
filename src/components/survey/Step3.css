@@ -111,9 +111,21 @@ h4 {
 }
 
 .candidate-vereador-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Duas colunas */
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    overflow: scroll;
+    max-height: calc(100vh - 400px); /* Define uma altura máxima para o grid, ajustando para acomodar os botões */
+    /*grid-template-columns: repeat(2, 1fr); !* Duas colunas *!*/
     gap: 10px;
+    flex-grow: 1; /* Permite que o grid cresça para preencher o espaço disponível */
+
+    /*    display: flex;*/
+    /*    flex-wrap: wrap;*/
+    /*    overflow-y: auto; !* Adiciona o scroll vertical *!*/
+    /*    flex-grow: 1; !* Permite que o grid cresça para preencher o espaço disponível *!*/
+    /*    margin-bottom: 20px; !* Adiciona espaço para os botões *!*/
+    /*    gap: 10px;*/
 }
 
 .candidate-vereador-card {
@@ -203,3 +215,47 @@ h4 {
     text-align: center;
     margin-top: 20px;
 }
+
+
+/*.step3 {*/
+/*    position: relative;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    height: 100%; !* Ajusta a altura do step3 para ocupar todo o espaço disponível *!*/
+/*    padding: 20px;*/
+/*}*/
+
+/*.candidate-vereador-grid {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    overflow-y: auto; !* Adiciona o scroll vertical *!*/
+/*    flex-grow: 1; !* Permite que o grid cresça para preencher o espaço disponível *!*/
+/*    margin-bottom: 20px; !* Adiciona espaço para os botões *!*/
+/*    gap: 10px;*/
+/*}*/
+
+/*.no-candidate-message {*/
+/*    margin-top: 20px;*/
+/*    color: #ff0000; !* Cor de destaque para a mensagem *!*/
+/*    text-align: center;*/
+/*}*/
+
+/*button-group {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    margin-top: 10px;*/
+/*}*/
+
+/*button {*/
+/*    padding: 10px 20px;*/
+/*    font-size: 16px;*/
+/*    cursor: pointer;*/
+/*    background-color: #007bff;*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    color: white;*/
+/*}*/
+
+/*button:hover {*/
+/*    background-color: #0056b3;*/
+/*}*/

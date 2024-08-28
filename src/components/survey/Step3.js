@@ -12,7 +12,7 @@ function toTitleCase(str) {
         .join(' ');
 }
 
-const Step3 = ({ councilorChoice, setCouncilorChoice }) => {
+const Step3 = ({ councilorChoice, setCouncilorChoice, onPrevious, onNext }) => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSelect = (nome) => {
