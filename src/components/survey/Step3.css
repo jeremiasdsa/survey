@@ -1,86 +1,94 @@
-/* Step3.css */
-
 .step3 {
-    text-align: center;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
 }
 
-.step3 h4 {
-    margin-bottom: 10px;
-    font-size: 1.4em; /* Aumenta o tamanho da fonte para destaque */
-    color: #fff;
+h4 {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
 }
 
 .search-input {
-    margin-bottom: 20px;
-    padding: 10px;
-    border-radius: 12px; /* Bordas mais arredondadas */
-    border: 2px solid #ffa500; /* Destaque em laranja */
     width: 90%;
-    align-self: center;
-    font-size: 1em; /* Aumenta o tamanho da fonte para melhor legibilidade */
+    margin: 0 auto 20px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    display: block;
 }
 
 .candidate-vereador-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Duas colunas de candidatos */
-    gap: 15px; /* Espaçamento entre os cartões */
-    overflow-y: auto;
-    flex-grow: 1;
-    padding-bottom: 10px;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 10px;
 }
 
 .candidate-vereador-card {
-    background-color: #222; /* Fundo mais escuro para os cartões */
-    border-radius: 15px;
-    padding: 15px;
-    width: 100px; /* Largura maior */
-    height: 80px; /* Altura ajustada */
-    cursor: pointer;
-    transition: transform 0.2s;
-    text-align: center;
     position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para dar destaque */
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    background-color: #1b1b1b;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #3a3a3a;
+    cursor: pointer;
+    transition: border-color 0.3s, transform 0.3s;
+    padding: 0; /* No padding for a tight fit */
 }
 
 .candidate-vereador-card.selected {
-    border: 3px solid #4CAF50; /* Borda verde quando selecionado */
+    border-color: #28a745;
     transform: scale(1.05);
 }
 
 .candidate-vereador-image {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    width: 40%; /* 2/5 of the card */
+    height: 100%;
     object-fit: cover;
-    margin: 0 auto 10px; /* Centraliza e adiciona margem inferior */
-    position: relative;
+    border-radius: 0; /* No border radius for a tighter fit */
+}
+
+.candidate-vereador-info {
+    width: 60%; /* 3/5 of the card */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 5px; /* Minimal padding for the text */
+}
+
+.candidate-vereador-info p {
+    margin: 0;
+    font-size: 12px; /* Smaller font size to fit better */
+    font-weight: bold;
+    color: #ffffff;
+    text-align: left;
+    line-height: 1.2;
+    margin-top: 0px; /* Position name closer to the top */
 }
 
 .candidate-vereador-number {
     position: absolute;
-    top: 10px; /* Posiciona na parte superior */
-    left: 10px; /* Posiciona na parte superior esquerda */
-    width: 40px;
-    height: 40px;
-    background-color: #ff0000; /* Vermelho padrão, será sobrescrito inline */
-    color: white;
-    border-radius: 50%;
+    bottom: 8px; /* Positioned at the bottom right */
+    right: 10px;
+    padding: 3px 8px;
+    border-radius: 5px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 0.9em;
-    font-weight: bold;
+    justify-content: center;
+    font-size: 12px; /* Slightly smaller to fit */
+    color: #ffffff;
+    background-color: var(--candidate-color);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2),
+    inset 0px 2px 4px rgba(255, 255, 255, 0.1);
 }
 
-.candidate-vereador-info {
-    font-size: 0.8em;
-    color: #fff;
-    text-transform: capitalize;
+.candidate-vereador-card {
+    --candidate-color: #3a3a3a; /* default color */
+}
+
+.candidate-vereador-card[data-color] {
+    --candidate-color: attr(data-color);
 }

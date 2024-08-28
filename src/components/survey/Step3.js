@@ -29,16 +29,14 @@ const Step3 = ({ councilorChoice, setCouncilorChoice }) => {
                         key={index}
                         className={`candidate-vereador-card ${councilorChoice === candidate.nome ? 'selected' : ''}`}
                         onClick={() => handleSelect(candidate.nome)}
+                        style={{'--candidate-color': candidate.cor}}
                     >
-                        <img src={candidate.image} alt={candidate.nome} className="candidate-vereador-image" />
+                        <img src={candidate.image} alt={candidate.nome} className="candidate-vereador-image"/>
                         <div className="candidate-vereador-info">
                             <p>{candidate.nome}</p>
                         </div>
                         {candidate.numero && (
-                            <div
-                                className="candidate-vereador-number"
-                                style={{ backgroundColor: candidate.cor }}
-                            >
+                            <div className="candidate-vereador-number">
                                 {candidate.numero}
                             </div>
                         )}
