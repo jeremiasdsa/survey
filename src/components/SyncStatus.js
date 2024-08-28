@@ -1,13 +1,10 @@
-// SyncStatus.js
-
 import React, { useEffect, useState } from 'react';
-// import { database } from '../firebase';
-
-import { ref, push } from 'firebase/database';
-import {database} from "../firebase";
+import { ref, onValue, off } from 'firebase/database';
+import { database } from "../firebase";
 
 const SyncStatus = () => {
     const [isOnline, setIsOnline] = useState(navigator.onLine);
+    const [isConnectedToFirebase, setIsConnectedToFirebase] = useState(false);
 
     useEffect(() => {
         const handleOnline = () => setIsOnline(true);
@@ -23,22 +20,26 @@ const SyncStatus = () => {
     }, []);
 
     useEffect(() => {
-        // const syncHandler = database.ref('.info/connected').on('value', (snap) => {
-        //     if (snap.val() === true) {
-        //         console.log('Connected to Firebase!');
-        //     } else {
-        //         console.log('Disconnected from Firebase.');
-        //     }
-        // });
-        //
-        // return () => {
-        //     database.ref('.info/connected').off('value', syncHandler);
-        // };
+        const connectedRef = ref(database, '.info/connected');
+        const syncHandler = onValue(connectedRef, (snapshot) => {
+            if (snapshot.val() === true) {
+                console.log('Connected to Firebase!');
+                setIsConnectedToFirebase(true);
+            } else {
+                console.log('Disconnected from Firebase.');
+                setIsConnectedToFirebase(false);
+            }
+        });
+
+        return () => {
+            off(connectedRef, syncHandler);
+        };
     }, []);
 
     return (
         <div>
             <p>Status: {isOnline ? 'Online' : 'Offline'}</p>
+            <p>Firebase: {isConnectedToFirebase ? 'Connected' : 'Disconnected'}</p>
         </div>
     );
 };

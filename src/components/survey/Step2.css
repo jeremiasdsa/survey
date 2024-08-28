@@ -1,0 +1,66 @@
+/* Step2.css */
+
+.step2 {
+    text-align: center;
+    padding: 20px;
+}
+
+.step2 h4 {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.candidate-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
+}
+
+.candidate-card {
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    padding: 10px;
+    width: 120px;
+    height: 160px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    text-align: center;
+    position: relative;
+}
+
+.candidate-card.selected {
+    border: 3px solid green;
+    transform: scale(1.05);
+}
+
+.candidate-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.candidate-info {
+    font-size: 0.9em;
+    color: #333;
+}
+
+.candidate-number {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    background-color: #ff0000; /* Background color will be overridden inline */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+    font-weight: bold;
+}
