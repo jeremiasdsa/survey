@@ -68,7 +68,8 @@ const Login = ({ onLogin }) => {
     }, []);
 
     return (
-        <form className="login-form" onSubmit={handleSubmit}>
+        <div className="login">
+            <form className="login-form" onSubmit={handleSubmit}>
             <input
                 ref={nameInputRef}  // Referência para o campo nome
                 className={`login-input ${error ? 'error' : ''}`}
@@ -98,6 +99,7 @@ const Login = ({ onLogin }) => {
                 <h1>version 1.0</h1>
             </div>
         </form>
+        </div>
     );
 };
 

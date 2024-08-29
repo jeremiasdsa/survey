@@ -3,6 +3,7 @@ import './Step1.css';
 
 const Step1 = ({ neighborhood, setNeighborhood, street, setStreet, isError }) => {
     return (
+        <div className="info">
         <div className="step1">
             <h4>Informações da Localização</h4>
             <input
@@ -19,6 +20,7 @@ const Step1 = ({ neighborhood, setNeighborhood, street, setStreet, isError }) =>
                 onChange={(e) => setStreet(e.target.value)}
                 className={isError && !street ? 'error' : ''}
             />
+        </div>
         </div>
     );
 };
