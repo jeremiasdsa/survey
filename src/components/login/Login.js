@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Login.css'; // Importa o CSS específico para o componente
 import { doc, getDoc } from "firebase/firestore";
-import {fireDb} from '../../firebase'
-import {allowedUsers} from "../../data";
+import { fireDb } from '../../firebase';
+import { allowedUsers } from "../../data";
 
 const Login = ({ onLogin }) => {
     const [name, setName] = useState('');
     const [pin, setPin] = useState('');
     const [error, setError] = useState('');
+
+    // Crie referências para os inputs
+    const nameInputRef = useRef(null);
+    const pinInputRef = useRef(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,25 +41,36 @@ const Login = ({ onLogin }) => {
             console.error(err);
         }
 
-        // const connectedRef = ref(database, 'users');
-        // onValue(connectedRef, (snapshot) => {
-        //     console.log(snapshot.val()?.[name]?.['password'])
-        //     if(snapshot.val()?.[name]?.['password'] !== pin) {
-        //         setError('Usuario ou senha invalidos');
-        //         console.log('validou senhas e deu erro', {pin, dbPin:snapshot.val()?.[name]?.['password']})
-        //         return rej();
-        //     }
-        //     return res();
-        // });
-
-        // Limpar erros ao submeter com sucesso
         setError('');
         onLogin(name, pin);
     };
 
+    // Adicione o useEffect para detectar cliques fora dos inputs
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (
+                nameInputRef.current && !nameInputRef.current.contains(event.target) &&
+                pinInputRef.current && !pinInputRef.current.contains(event.target)
+            ) {
+                // Remove o foco dos inputs
+                nameInputRef.current.blur();
+                pinInputRef.current.blur();
+            }
+        };
+
+        // Adiciona o evento de clique ao documento
+        document.addEventListener('click', handleClickOutside);
+
+        // Limpa o evento ao desmontar o componente
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
+
     return (
         <form className="login-form" onSubmit={handleSubmit}>
             <input
+                ref={nameInputRef}  // Referência para o campo nome
                 className={`login-input ${error ? 'error' : ''}`}
                 type="text"
                 placeholder="Pesquisador (Name)"
@@ -64,6 +79,7 @@ const Login = ({ onLogin }) => {
                 required
             />
             <input
+                ref={pinInputRef}  // Referência para o campo PIN
                 className={`login-input ${error ? 'error' : ''}`}
                 type="password"
                 placeholder="PIN"

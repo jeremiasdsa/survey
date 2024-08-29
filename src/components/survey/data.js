@@ -1,11 +1,11 @@
 // data.js
 const partidoCores = {
-    PV: "#00FF00",
+    PV: "#0a860a",
     REDE: "#FF4500",
-    PSD: "#FFD700",
+    PSD: "#716402",
     PT: "#FF0000",
     PP: "#0000FF",
-    UNIÃO: "#1E90FF",
+    UNIÃO: "#0a60b3",
     Branco: "#FFFFFF",
     Nulo: "#808080"
 };
@@ -71,7 +71,7 @@ const councilorOptions = [
     { nome: "VITORINHA", partido: "UNIÃO", numero: 44444, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
     { nome: "WALDILEA", partido: "REDE", numero: 18100, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
     { nome: "ZÉ PEREIRA", partido: "UNIÃO", numero: 44000, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
-    { nome: "BRANCO", partido: "", numero: "", image: `${process.env.PUBLIC_URL}/branco.png` },
+    { nome: "Branco", partido: "", numero: "", image: `${process.env.PUBLIC_URL}/branco.png` },
     { nome: "Nulo", partido: "", numero: "", image: `${process.env.PUBLIC_URL}/branco.png` },
 ];
 
@@ -84,7 +84,7 @@ const mayorOptions = [
         partido: "PP",
         numero: 11,
         imagem: `${process.env.PUBLIC_URL}/claudio_regis.png`,
-        cor: "#1e90ff"  // Azul para Cláudio Régis
+        cor: "#0754e4"  // Azul para Cláudio Régis
     },
     {
         nome: "GLEDS",
@@ -94,7 +94,7 @@ const mayorOptions = [
         cor: "#8b0000"  // Vermelho escuro para Gleds
     },
     {
-        nome: "isaac_coelhinho",
+        nome: "Branco",
         partido: "",
         numero: "",
         imagem: `${process.env.PUBLIC_URL}/branco.png`,
