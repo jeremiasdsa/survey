@@ -44,18 +44,17 @@ const Step3 = ({ councilorChoice, setCouncilorChoice, onPrevious, onNext }) => {
                             onClick={() => handleSelect(candidate.nome)}
                             style={{ '--candidate-color': partidoCores[candidate.partido] || '#000000' }}
                         >
-                            <div className="quadrant quadrant-1">
-                                <img src={candidate.image} alt={candidate.nome} className="candidate-vereador-image" />
+                            <div className="quadrant-1">
+                                <img src={candidate.image} alt={candidate.nome}
+                                     className="candidate-vereador-image"/>
                             </div>
-                            <div className="quadrant quadrant-2">
-                                <p className="candidate-vereador-name">{toTitleCase(candidate.nome)}</p>
-                                {candidate.numero && (
-                                    <div className="quadrant quadrant-4b">
-                                        <div className="candidate-vereador-number">
-                                            {candidate.numero}
-                                        </div>
+                            <div className="candidate-vereador-content">
+                                <div className="candidate-vereador-name">{toTitleCase(candidate.nome)}</div>
+                                <div className="quadrant-4b">
+                                    <div className="candidate-vereador-number">
+                                        {candidate.numero}
                                     </div>
-                                )}
+                                </div>
                             </div>
                         </div>
                     ))

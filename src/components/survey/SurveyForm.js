@@ -10,11 +10,15 @@ import Step3 from './Step3';
 import Review from './Review';
 
 const updateDataLocally = async (data, synced) => {
-    const db = await openDatabase();
-    const transaction = db.transaction("dataStore", "readwrite");
-    const store = transaction.objectStore("dataStore");
-    store.put({ ...data, synced });
-    console.log("Dados salvos localmente no IndexedDB.");
+    try {
+        const db = await openDatabase();
+        const transaction = db.transaction("dataStore", "readwrite");
+        const store = transaction.objectStore("dataStore");
+        store.put({ ...data, synced });
+        console.log('Dados salvos localmente no IndexedDB.');
+    } catch (err) {
+        console.error('[updateDataLocally]', err);
+    }
 }
 
 const SurveyForm = ({ researcherName }) => {
@@ -70,25 +74,35 @@ const SurveyForm = ({ researcherName }) => {
             await updateDataLocally(newSurvey, false);
 
             // Tentar salvar no Firebase Realtime Database
-            await push(ref(database, 'surveys'), newSurvey);
-            console.log("Dados salvos no Realtime.");
-
-            // Atualizar o status de sincronização localmente
-            await updateDataLocally(newSurvey, true);
+            push(ref(database, 'surveys'), newSurvey)
+                .then(async () => {
+                    console.log('Dados salvos no Realtime.');
+                    // Atualizar o status de sincronização localmente
+                    await updateDataLocally(newSurvey, true);
+                })
+                .catch((err) => {
+                    console.error('realtime - error', err);
+                });
 
             // Salvar no Firestore
-            await setDoc(doc(fireDb, `surveys/${newSurvey.id}`), newSurvey);
+            setDoc(doc(fireDb, `surveys/${newSurvey.id}`), newSurvey)
+                .then(() => {
+                    console.log('Dados salvos no Firestore.');
+                })
+                .catch((err) => {
+                    console.log('firestore - error', err);
+                });
 
             console.log("Dados salvos no Firestore.");
 
-            setFeedbackMessage('Dados salvos com sucesso no Firebase.');
+            setFeedbackMessage(`${navigator.onLine ? 'Dados salvos na nuvem' : 'Dados salvos localmente para posterior sincronização'}`);
             setIsError(false);
 
             // Redirecionar para iniciar uma nova pesquisa
             resetForm();
         } catch (err) {
             console.error("Erro ao salvar os dados:", err);
-            setFeedbackMessage('Erro ao salvar no Firebase. Os dados serão sincronizados automaticamente quando a conexão for restabelecida.');
+            setFeedbackMessage('Erro ao salvar no Firebase. Os dados serão sincronizados automaticamente quando a conexão for restabelecida.'); //TODO think on a better message
             setIsError(true);
             resetForm();
         }
