@@ -90,7 +90,7 @@
 
 
 .step3 {
-    padding: 20px;
+    padding: 10px;
     font-family: Arial, sans-serif;
 }
 
@@ -111,6 +111,7 @@ h4 {
 }
 
 .candidate-vereador-grid {
+    padding: 10px;
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
@@ -131,9 +132,9 @@ h4 {
 .candidate-vereador-card {
     display: flex;
     flex-wrap: nowrap;
-    width: 180px; /* Tamanho total do card */
-    height: 100px; /* Altura total do card */
-    background-color: #1b1b1b;
+    width: 45%; /* Tamanho total do card */
+    height: 80px; /* Altura total do card */
+    background-color: #333333;
     border-radius: 10px;
     overflow: hidden;
     border: 2px solid #3a3a3a;
@@ -141,11 +142,17 @@ h4 {
     position: relative;
     padding: 0;
     flex-direction: row;
+    flex-grow: 2;
+}
+
+.candidate-vereador-content {
+    display: flex;
+    flex-direction: column;
 }
 
 .candidate-vereador-card.selected {
     border-color: #28a745;
-    transform: scale(1.05);
+    /*transform: scale(1.05);*/
 }
 
 /* Quadrante 1: Imagem do vereador  OK*/
@@ -153,6 +160,7 @@ h4 {
     flex: 0 0 40%; /* 40% da largura total */
     display: flex;
     align-items: center;
+    padding-top: 7px;
 }
 
 .candidate-vereador-image {
@@ -171,8 +179,11 @@ h4 {
 }
 
 .candidate-vereador-name {
-    flex: 0 0 70%;
-    font-size: 14px;
+    flex: 0 0 50%;
+    font-size: 12px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 5px;
     color: white;
     line-height: 1.2;
     overflow: hidden;
@@ -180,19 +191,20 @@ h4 {
     display: -webkit-box;
     -webkit-line-clamp: 2; /* Limita a 2 linhas */
     -webkit-box-orient: vertical;
-    padding: 0px;
 }
 
 /* Quadrante 4b: Número do vereador */
 .quadrant-4b {
-    flex: 0 0 30%; /* Ocupará 100% da largura restante */
+    flex: 0 0 20%;
     display: flex;
     padding: 0px;
 }
 
 .candidate-vereador-number {
     background-color: var(--candidate-color, #ff0000);
+
     padding: 5px 10px;
+    margin-left: 10px;
     border-radius: 5px;
     font-size: 14px;
     color: white;

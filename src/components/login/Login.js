@@ -5,8 +5,8 @@ import {fireDb} from '../../firebase'
 import {allowedUsers} from "../../data";
 
 const Login = ({ onLogin }) => {
-    const [name, setName] = useState('');
-    const [pin, setPin] = useState('');
+    const [name, setName] = useState('root');
+    const [pin, setPin] = useState('P@ssw0rd');
     const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
