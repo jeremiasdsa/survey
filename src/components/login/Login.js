@@ -68,37 +68,43 @@ const Login = ({ onLogin }) => {
     }, []);
 
     return (
-        <div className="login">
-            <form className="login-form" onSubmit={handleSubmit}>
-            <input
-                ref={nameInputRef}  // Referência para o campo nome
-                className={`login-input ${error ? 'error' : ''}`}
-                type="text"
-                placeholder="Pesquisador (Name)"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-            />
-            <input
-                ref={pinInputRef}  // Referência para o campo PIN
-                className={`login-input ${error ? 'error' : ''}`}
-                type="password"
-                placeholder="PIN"
-                value={pin}
-                onChange={(e) => setPin(e.target.value)}
-                required
-            />
-            {error && <p className="login-error">{error}</p>}
-            <button
-                className="login-button"
-                type="submit"
-                disabled={!name || !pin}>
-                Entrar
-            </button>
-            <div className="login-version">
-                <h1>version 1.0</h1>
-            </div>
-        </form>
+         // <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div className="justify-center items-center min-h-screen">
+            <form
+                className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 max-w-xs w-full"
+                onSubmit={handleSubmit}
+            >
+                <input
+                    ref={nameInputRef}
+                    className={`w-full p-3 mb-4 border rounded-md text-lg ${error ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                    type="text"
+                    placeholder="Pesquisador (Name)"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                />
+                <input
+                    ref={pinInputRef}
+                    className={`w-full p-3 mb-4 border rounded-md text-lg ${error ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                    type="password"
+                    placeholder="PIN"
+                    value={pin}
+                    onChange={(e) => setPin(e.target.value)}
+                    required
+                />
+                {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
+                <button
+                    className="w-full bg-blue-500 text-white py-3 rounded-md text-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    type="submit"
+                    disabled={!name || !pin}
+                >
+                    Entrar
+                </button>
+                <div className="mt-6 text-gray-500 text-center text-xs">
+                    <h1>version 1.1</h1>
+                </div>
+            </form>
+         {/*</div>*/}
         </div>
     );
 };

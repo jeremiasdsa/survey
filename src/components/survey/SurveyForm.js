@@ -168,7 +168,7 @@ const SurveyForm = ({ researcherName }) => {
             <div className="button-group">
                 {step > 1 && step < 4 && <button onClick={handlePrevious}>Anterior</button>}
                 {step < 3 && <button onClick={handleNext}>Próximo</button>}
-                {step === 3 && <button onClick={handleNext}>Revisar Respostas</button>}
+                {step === 3 && <button onClick={handleNext}>Revisar</button>}
             </div>
 
             {feedbackMessage && (

@@ -29,7 +29,7 @@
 .candidate-card.selected {
     border-color: green;
     transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 255, 0, 0.3);
+    box-shadow: 0 4px 18px rgba(0, 255, 0, 0.3);
 }
 
 .candidate-image {
