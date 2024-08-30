@@ -8,6 +8,7 @@ import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 import Review from './Review';
+import ActionsBar from "../ActionsBar";
 
 const updateDataLocally = async (data, synced) => {
     try {
@@ -21,7 +22,7 @@ const updateDataLocally = async (data, synced) => {
     }
 }
 
-const SurveyForm = ({ researcherName }) => {
+const SurveyForm = ({ researcherName, theme }) => {
     const [step, setStep] = useState(1);
     const [neighborhood, setNeighborhood] = useState('');
     const [street, setStreet] = useState('');
@@ -29,7 +30,6 @@ const SurveyForm = ({ researcherName }) => {
     const [councilorChoice, setCouncilorChoice] = useState('');
     const [feedbackMessage, setFeedbackMessage] = useState('');
     const [isError, setIsError] = useState(false);
-    const [theme, setTheme] = useState('light');
 
     const handleNext = () => {
         if (step === 1 && (!neighborhood || !street)) {
@@ -116,18 +116,8 @@ const SurveyForm = ({ researcherName }) => {
         setStep(1);
     };
 
-    const toggleTheme = () => {
-        setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
-    };
-
     return (
         <div className={`survey-form ${theme}`}>
-            <div className="theme-toggle">
-                <button onClick={toggleTheme}>
-                    {theme === 'light' ? 'Tema Escuro' : 'Tema Claro'}
-                </button>
-            </div>
-
             {step === 1 && (
                 <Step1
                     neighborhood={neighborhood}
@@ -165,11 +155,7 @@ const SurveyForm = ({ researcherName }) => {
                 />
             )}
 
-            <div className="button-group">
-                {step > 1 && step < 4 && <button onClick={handlePrevious}>Anterior</button>}
-                {step < 3 && <button onClick={handleNext}>Próximo</button>}
-                {step === 3 && <button onClick={handleNext}>Revisar</button>}
-            </div>
+            <ActionsBar next={handleNext} prev={handlePrevious} step={step}/>
 
             {feedbackMessage && (
                 <p className={`feedback-message ${isError ? 'error' : 'success'}`} aria-live="assertive">
