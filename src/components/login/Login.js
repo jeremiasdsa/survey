@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './Login.css'; // Importa o CSS específico para o componente
 import { doc, getDoc } from "firebase/firestore";
 import { fireDb } from '../../firebase';
 import { allowedUsers } from "../../data";
@@ -9,19 +8,17 @@ const Login = ({ onLogin }) => {
     const [pin, setPin] = useState('P@ssw0rd');
     const [error, setError] = useState('');
 
-    // Crie referências para os inputs
     const nameInputRef = useRef(null);
     const pinInputRef = useRef(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validação aprimorada
         if (!name || !pin) {
             setError('Por favor, preencha todos os campos.');
             return;
         }
-        if (pin.length < 2) {
+        if (pin.length < 4) {
             setError('O PIN deve ter pelo menos 4 dígitos.');
             return;
         }
@@ -33,7 +30,7 @@ const Login = ({ onLogin }) => {
             } else {
                 const user = await getDoc(doc(fireDb, "users", name));
                 if (!user.exists() || user.data()?.password !== pin) {
-                    setError('Usuario ou senha invalidos');
+                    setError('Usuário ou senha inválidos');
                     return;
                 }
             }
@@ -45,31 +42,26 @@ const Login = ({ onLogin }) => {
         onLogin(name, pin);
     };
 
-    // Adicione o useEffect para detectar cliques fora dos inputs
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (
                 nameInputRef.current && !nameInputRef.current.contains(event.target) &&
                 pinInputRef.current && !pinInputRef.current.contains(event.target)
             ) {
-                // Remove o foco dos inputs
                 nameInputRef.current.blur();
                 pinInputRef.current.blur();
             }
         };
 
-        // Adiciona o evento de clique ao documento
         document.addEventListener('click', handleClickOutside);
 
-        // Limpa o evento ao desmontar o componente
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
 
     return (
-         // <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900">
-        <div className="justify-center items-center min-h-screen">
+        <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900">
             <form
                 className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 max-w-xs w-full"
                 onSubmit={handleSubmit}
@@ -104,7 +96,6 @@ const Login = ({ onLogin }) => {
                     <h1>version 1.1</h1>
                 </div>
             </form>
-         {/*</div>*/}
         </div>
     );
 };
