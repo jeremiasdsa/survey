@@ -1,5 +1,4 @@
 import React from 'react';
-import './Review.css';
 
 // Função para converter o texto para Title Case
 function toTitleCase(str) {
@@ -15,31 +14,26 @@ const Review = ({ formData, onConfirm, onEdit }) => {
         <div className="review space-y-4">
             <h4 className="text-lg font-semibold text-gray-800">Revisão das Respostas</h4>
 
-            <div className="review-item">
+            <div>
                 <strong>Bairro:</strong> {formData.bairro}
             </div>
-            <div className="review-item">
+            <div>
                 <strong>Rua:</strong> {formData.rua}
             </div>
-            <div className="review-item">
+            <div>
                 <strong>Gênero:</strong> {toTitleCase(formData.genero)}
             </div>
-            <div className="review-item">
+            <div>
                 <strong>Faixa Etária:</strong> {toTitleCase(formData.faixaEtaria)}
             </div>
-            <div className="review-item">
+            <div>
                 <strong>Escolaridade:</strong> {toTitleCase(formData.escolaridade)}
             </div>
-            <div className="review-item">
+            <div>
                 <strong>Candidato a Prefeito:</strong> {toTitleCase(formData.mayorChoice)}
             </div>
-            <div className="review-item">
+            <div>
                 <strong>Candidato a Vereador:</strong> {toTitleCase(formData.councilorChoice)}
-            </div>
-
-            <div className="button-group flex justify-between">
-                <button onClick={onEdit} className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400">Editar</button>
-                <button onClick={onConfirm} className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Salvar</button>
             </div>
         </div>
     );
