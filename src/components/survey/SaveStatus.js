@@ -15,7 +15,7 @@ const SaveStatus = ({ onNewSurvey }) => {
     }, []);
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen pt-14">
+        <div className="flex flex-col items-center justify-center min-h-screen pt-14">
             {isLoading && (
                 <div className="text-lg text-gray-800">
                     Salvando...

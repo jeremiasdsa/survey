@@ -3,7 +3,6 @@ import { ref, push } from 'firebase/database';
 import { setDoc, doc } from 'firebase/firestore';
 import { database, fireDb } from "../../firebase";
 import { openDatabase } from '../../storage';
-import './SurveyForm.css';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
@@ -117,7 +116,7 @@ const SurveyForm = ({ researcherName, theme }) => {
     };
 
     return (
-        <div className={`survey-form ${theme}`}>
+        <div>
             {showSaveStatus ? (
                 <SaveStatus onNewSurvey={resetForm} /> // Exibe a tela de status de salvamento
             ) : (
@@ -154,7 +153,7 @@ const SurveyForm = ({ researcherName, theme }) => {
                         />
                     )}
 
-            <ActionsBar next={handleNext} prev={handlePrevious} step={step}/>
+                    <ActionsBar next={handleNext} prev={handlePrevious} step={step}/>
 
                     {feedbackMessage && (
                         <p className={`feedback-message ${isError ? 'error' : 'success'}`} aria-live="assertive">

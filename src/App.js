@@ -6,7 +6,8 @@ import { database } from "./firebase";
 import { openDatabase } from "./storage";
 import { ref, push } from 'firebase/database';
 import HeaderBar from './components/HeaderBar';
-import './index.css'; // Importa o Tailwind CSS
+import './index.css';
+import SaveStatus from "./components/survey/SaveStatus"; // Importa o Tailwind CSS
 
 // Função para sincronizar dados do IndexedDB com o Firebase
 function syncDataWithFirebase() {
@@ -75,10 +76,10 @@ function App() {
   };
 
   return (
-      <div className="app">
+      <div className={theme+" dark:border-zinc-600 bg-zinc-200 dark:bg-zinc-600 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400"}>
         <HeaderBar toggleTheme={toggleTheme}/>
           {researcherName ? (
-              <div className='mx-auto max-w-screen-md pt-14 pb-14 px-safe sm:pb-0'>
+              <div className='mx-auto max-w-screen-md min-h-screen pt-14 pb-14 px-safe sm:pb-0 dark:hover:text-zinc-50'>
                 <SurveyForm researcherName={researcherName} theme={theme}/>
                 {/*<SyncStatus/>*/}
               </div>
@@ -86,22 +87,6 @@ function App() {
               <Login onLogin={handleLogin} theme={theme}/>
           )}
       </div>
-
-
-      // <div className="app">
-      //   <HeaderBar />
-      //   <div className="content">
-      //     {researcherName ? (
-      //         <>
-      //           <SurveyForm researcherName={researcherName} />
-      //           <SyncStatus />
-      //         </>
-      //     ) : (
-      //         <Login onLogin={handleLogin} />
-      //     )}
-      //   </div>
-      //   <TabBar />
-      // </div>
   );
 }
 
