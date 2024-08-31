@@ -34,9 +34,6 @@ const InputComboBox = ({ value, onChange, placeholder }) => {
 
     return (
         <div className="relative ">
-             <label htmlFor="small" className="block mb-1 text-sl font-medium dark:text-white">
-            Bairro
-            </label>
             <input
                 type="text"
                 value={inputValue}
