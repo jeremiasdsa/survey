@@ -78,7 +78,7 @@ function App() {
       <div className={theme+" dark:border-zinc-600 bg-zinc-200 dark:bg-zinc-600 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400"}>
         <HeaderBar toggleTheme={toggleTheme}/>
           {researcherName ? (
-              <div className='mx-auto max-w-screen-md min-h-screen pt-14 pb-14 px-safe sm:pb-0 dark:hover:text-zinc-50'>
+              <div className='mx-auto max-w-screen-md min-h-screen pt-20 pb-14 px-safe dark:text-zinc-50 ml-5 mr-5'>
                 <SurveyForm researcherName={researcherName} theme={theme}/>
                 {/*<SyncStatus/>*/}
               </div>
