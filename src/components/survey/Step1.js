@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Modal from "./Modal";
+import InputComboBox from './InputComboBox'; // Certifique-se de que o caminho está correto
 
 const Step1 = ({ formData, setFormData, isError }) => {
 
@@ -59,37 +60,37 @@ const Step1 = ({ formData, setFormData, isError }) => {
 
 const LocationQuestion = ({ formData, handleChange, isError }) => (
     <div className="">
-        <h4 className="font-medium text-lg">Localização</h4>
-
         {/* Input para o campo "Bairro" */}
         <div className="mt-4">
-            <input
-                type="text"
-                placeholder="Bairro Lagoa (ou Zona Rural)"
+            <InputComboBox
                 value={formData.bairro || ''}
-                onChange={(e) => handleChange('bairro', e.target.value)}
-                className={`w-full p-3 border ${isError && !formData.bairro ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                onChange={(value) => handleChange('bairro', value)}
+                placeholder="Selecione ou digite o bairro"
             />
             {isError && !formData.bairro && (
-                <p className="text-red-500 text-sm mt-2">Este campo é obrigatório.</p>
+                <p className="text-red-500 text-sm mt-0.5">Este campo é obrigatório.</p>
             )}
         </div>
 
-        {/* Input para o campo "Rua" */}
-        <div className="mt-4">
+
+         {/*Input para o campo "Rua"   PARA REATIVAR A RUA, LEMBRESSE DE ATUALIZAR O ARRAY DE VALIDACAO DE STEPS NO SURVEYFORM */}
+        <div className="mt-4 ">
             <input
                 type="text"
-                placeholder="Rua (ou ZN)"
+                placeholder="Rua ou outra Informação"
+                className="w-full p-3 text-sl border rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 value={formData.rua || ''}
                 onChange={(e) => handleChange('rua', e.target.value)}
-                className={`w-full p-3 border ${isError && !formData.rua ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                // className={`w-full p-3 border ${isError && !formData.rua ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500`}
             />
             {isError && !formData.rua && (
-                <p className="text-red-500 text-sm mt-2">Este campo é obrigatório.</p>
+                <p className="mt-0.5 text-green-500 text-sm">Este campo é opcional.</p>
             )}
         </div>
     </div>
 );
+
+// export default LocationQuestion;
 
 //****************//
 
@@ -123,7 +124,7 @@ const GenderQuestion = ({formData, handleChange, isError}) => (
                 </label>
             </div>
             {isError && !formData.genero && (
-                <p className="text-red-500 text-sm mt-2">Este campo é obrigatório.</p>
+                <p className="text-red-500 text-sm mt-0.5">Este campo é obrigatório.</p>
             )}
         </div>
     </div>
@@ -157,7 +158,7 @@ const AgeQuestion = ({ formData, handleChange, isError }) => (
                 ))}
             </div>
             {isError && !formData.faixaEtaria && (
-                <p className="text-red-500 text-sm mt-2">Este campo é obrigatório.</p>
+                <p className="text-red-500 text-sm mt-0.5">Este campo é obrigatório.</p>
             )}
         </div>
     </div>
@@ -190,7 +191,7 @@ const EducationQuestion = ({ formData, handleChange, isError }) => (
                 ))}
             </div>
             {isError && !formData.escolaridade && (
-                <p className="text-red-500 text-sm mt-2">Este campo é obrigatório.</p>
+                <p className="text-red-500 text-sm mt-0.5">Este campo é obrigatório.</p>
             )}
         </div>
     </div>
@@ -249,7 +250,7 @@ const IncomeQuestion = ({ formData, handleChange, isError }) => (
                 ))}
             </div>
             {isError && !formData.rendaFamiliar && (
-                <p className="text-red-500 text-sm mt-2">Este campo é obrigatório.</p>
+                <p className="text-red-500 text-sm mt-0.5">Este campo é obrigatório.</p>
             )}
         </div>
     </div>

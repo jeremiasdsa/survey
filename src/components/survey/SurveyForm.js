@@ -36,13 +36,13 @@ const SurveyForm = ({ researcherName, theme }) => {
 
         // Defina os campos obrigatórios com base na etapa atual
         if (step === 1) {
-            requiredFields = ['bairro', 'rua', 'genero', 'faixaEtaria', 'escolaridade', 'rendaFamiliar'];
+            requiredFields = ['bairro', 'genero', 'faixaEtaria', 'escolaridade', 'rendaFamiliar'];
         } else if (step === 2) {
-            requiredFields = ['bairro', 'rua', 'genero', 'faixaEtaria', 'escolaridade', 'rendaFamiliar', 'mayorChoice'];
+            requiredFields = ['bairro', 'genero', 'faixaEtaria', 'escolaridade', 'rendaFamiliar', 'mayorChoice'];
         } else if (step === 3) {
-            requiredFields = ['bairro', 'rua', 'genero', 'faixaEtaria', 'escolaridade', 'rendaFamiliar', 'mayorChoice', 'aVoidMayorChoice'];
+            requiredFields = ['bairro', 'genero', 'faixaEtaria', 'escolaridade', 'rendaFamiliar', 'mayorChoice', 'aVoidMayorChoice'];
         } else if (step === 4) {
-            requiredFields = ['bairro', 'rua', 'genero', 'faixaEtaria', 'escolaridade', 'rendaFamiliar', 'mayorChoice', 'aVoidMayorChoice', 'councilorChoice'];
+            requiredFields = ['bairro', 'genero', 'faixaEtaria', 'escolaridade', 'rendaFamiliar', 'mayorChoice', 'aVoidMayorChoice', 'councilorChoice'];
         }
 
         // Verificar se todos os campos obrigatórios estão preenchidos
