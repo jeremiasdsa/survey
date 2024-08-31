@@ -98,7 +98,8 @@ const SurveyForm = ({ researcherName, theme }) => {
                     console.log('firestore - error', err);
                 });
 
-            setFeedbackMessage(`${navigator.onLine ? 'Dados salvos na nuvem' : 'Dados salvos localmente para posterior sincronização'}`);
+            //Commentei essa linha para não exibir mensagem de salvos com sucesso no final da pesquisa
+            //setFeedbackMessage(`${navigator.onLine ? 'Dados salvos na nuvem' : 'Dados salvos localmente para posterior sincronização'}`);
             setIsError(false);
 
             // // Redirect to start a new survey

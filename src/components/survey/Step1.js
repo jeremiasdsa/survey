@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Modal from "./Modal";
 
 const Step1 = ({ formData, setFormData, isError }) => {
 
@@ -9,33 +10,46 @@ const Step1 = ({ formData, setFormData, isError }) => {
         });
     };
 
+    const [isModalOpen, setIsModalOpen] = useState(true);
+
+    const handleStartSurvey = () => {
+        setIsModalOpen(false);
+    };
+
     return (
-        <div className="space-y-6">
-            <LocationQuestion
-                formData={formData}
-                handleChange={handleChange}
-                isError={isError}
-            />
-            <GenderQuestion
-                formData={formData}
-                handleChange={handleChange}
-                isError={isError}
-            />
-            <AgeQuestion
-                formData={formData}
-                handleChange={handleChange}
-                isError={isError}
-            />
-            <EducationQuestion
-                formData={formData}
-                handleChange={handleChange}
-                isError={isError}
-            />
-            <IncomeQuestion
-                formData={formData}
-                handleChange={handleChange}
-                isError={isError}
-            />
+        <div>
+            <div className="space-y-6">
+                <LocationQuestion
+                    formData={formData}
+                    handleChange={handleChange}
+                    isError={isError}
+                />
+                <GenderQuestion
+                    formData={formData}
+                    handleChange={handleChange}
+                    isError={isError}
+                />
+                <AgeQuestion
+                    formData={formData}
+                    handleChange={handleChange}
+                    isError={isError}
+                />
+                <EducationQuestion
+                    formData={formData}
+                    handleChange={handleChange}
+                    isError={isError}
+                />
+                <IncomeQuestion
+                    formData={formData}
+                    handleChange={handleChange}
+                    isError={isError}
+                />
+                <Modal
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    onStartSurvey={handleStartSurvey}
+                />
+            </div>
         </div>
     );
 };

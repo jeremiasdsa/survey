@@ -6,7 +6,7 @@ const Alert = ({ message, type }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setVisible(false);
-        }, 3000); // Disappear after 3 seconds
+        }, 300000); // Disappear after 3 seconds
 
         return () => clearTimeout(timer); // Cleanup the timer
     }, []);
@@ -14,15 +14,16 @@ const Alert = ({ message, type }) => {
     if (!visible) return null;
 
     return (
-        //Revisar se fixa o Alerta no topo de todo mundo
-        <div className="text-center pt-10 p-6 mr-4 ml-4 fixed top-16  bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            className={`transition-opacity duration-500 ease-in-out ${
-                visible ? 'opacity-100' : 'opacity-0'
-            } flex items-center p-4 mb-4 text-sm ${
-                type === 'error' ? 'text-red-800 bg-red-50 dark:bg-gray-800 dark:text-red-400' : 'text-green-800 bg-green-50 dark:bg-gray-800 dark:text-green-400'
-            } rounded-lg`}
-            role="alert"
-        >
+        //Revisar se fixa o Alerta no topo dos demais: fixed top-16
+        // <div className="text-center pt-10 p-6 mr-4 ml-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <div
+                className={`transition-opacity duration-500 ease-in-out ${
+                    visible ? 'opacity-100' : 'opacity-0'
+                } flex items-center p-4 mb-4 text-sm ${
+                    type === 'error' ? 'text-red-800 bg-red-50 dark:bg-gray-800 dark:text-red-400' : 'text-green-800 bg-green-50 dark:bg-gray-800 dark:text-green-400'
+                } rounded-lg`}
+                role="alert"
+            >
             <svg
                 className="flex-shrink-0 w-4 h-4"
                 aria-hidden="true"
