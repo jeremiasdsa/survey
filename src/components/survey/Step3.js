@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './Step3.css';
 import { councilorOptions } from './data';
 import { partidoCores } from './data';
 
@@ -26,40 +25,50 @@ const Step3 = ({ councilorChoice, setCouncilorChoice, onPrevious, onNext }) => {
     );
 
     return (
-        <div className="step3">
-            <h4>Selecione o candidato para Vereador.</h4>
+        <div className="p-4 bg-zinc-900 min-h-screen text-white">
+            <h4 className="text-lg font-semibold mb-4 text-center">Selecione o candidato para Vereador.</h4>
             <input
                 type="text"
                 placeholder="Procurar por nome ou número"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-input"
+                className="w-full p-2 mb-4 text-black rounded-lg"
             />
-            <div className="candidate-vereador-grid">
+            <div className="grid grid-cols-3 gap-4">
                 {filteredCandidates.length > 0 ? (
                     filteredCandidates.map((candidate, index) => (
                         <div
                             key={index}
-                            className={`candidate-vereador-card ${councilorChoice === candidate.nome ? 'selected' : ''}`}
+                            className={`p-4 rounded-lg cursor-pointer transition-all ${
+                                councilorChoice === candidate.nome
+                                    ? 'ring-4 ring-green-500'
+                                    : 'ring-2 ring-gray-500 hover:ring-green-300'
+                            }`}
                             onClick={() => handleSelect(candidate.nome)}
                             style={{ '--candidate-color': partidoCores[candidate.partido] || '#000000' }}
                         >
-                            <div className="quadrant-1">
-                                <img src={candidate.image} alt={candidate.nome}
-                                     className="candidate-vereador-image"/>
+                            <div className="flex items-center justify-center mb-2">
+                                <img
+                                    src={candidate.image}
+                                    alt={candidate.nome}
+                                    className="w-12 h-12 rounded-full"
+                                />
                             </div>
-                            <div className="candidate-vereador-content">
-                                <div className="candidate-vereador-name">{toTitleCase(candidate.nome)}</div>
-                                <div className="quadrant-4b">
-                                    <div className="candidate-vereador-number">
-                                        {candidate.numero}
-                                    </div>
+                            <div className="text-center">
+                                <div className="text-sm font-medium mb-1">{toTitleCase(candidate.nome)}</div>
+                                <div
+                                    className="text-white text-xs px-2 py-1 rounded-full"
+                                    style={{ backgroundColor: partidoCores[candidate.partido] || '#000000' }}
+                                >
+                                    {candidate.numero}
                                 </div>
                             </div>
                         </div>
                     ))
                 ) : (
-                    <p className="no-candidate-message">Nenhum candidato encontrado para o termo "{searchTerm}".</p>
+                    <p className="col-span-2 text-center text-gray-300">
+                        Nenhum candidato encontrado para o termo "{searchTerm}".
+                    </p>
                 )}
             </div>
         </div>

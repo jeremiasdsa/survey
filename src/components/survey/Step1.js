@@ -186,23 +186,49 @@ const IncomeQuestion = ({ formData, handleChange, isError }) => (
         <h4 className="font-medium">Renda Familiar</h4>
 
         <div className="mb-4">
-            <div className={`space-y-2 ${isError && !formData.rendaFamiliar ? 'border-red-500' : ''}`}>
+            <div className={`space-y-4 ${isError && !formData.rendaFamiliar ? 'border-red-500' : ''}`}>
                 {[
-                    'Até 2 salários mínimos (até R$2.824,00)',
-                    'De 2 a 5 salários mínimos (de R$2.824,00 a R$7.060,00)',
-                    'Acima de 5 salários mínimos (acima de R$7.060,00)'
+                    {
+                        id: 'renda1',
+                        value: 'Até 2 salários mínimos (até R$2.824,00)',
+                        label: 'Até 2 salários mínimos',
+                        description: 'Até R$2.824,00',
+                    },
+                    {
+                        id: 'renda2',
+                        value: 'De 2 a 5 salários mínimos (de R$2.824,00 a R$7.060,00)',
+                        label: 'De 2 a 5 salários mínimos',
+                        description: 'De R$2.824,00 a R$7.060,00',
+                    },
+                    {
+                        id: 'renda3',
+                        value: 'Acima de 5 salários mínimos (acima de R$7.060,00)',
+                        label: 'Acima de 5 salários mínimos',
+                        description: 'Acima de R$7.060,00',
+                    }
                 ].map(option => (
-                    <label key={option} className="block">
-                        <input
-                            type="radio"
-                            name="rendaFamiliar"
-                            value={option}
-                            checked={formData.rendaFamiliar === option}
-                            onChange={(e) => handleChange('rendaFamiliar', e.target.value)}
-                            className="mr-2"
-                        />
-                        {option}
-                    </label>
+                    <div key={option.id} className="flex">
+                        <div className="flex items-center h-5">
+                            <input
+                                id={option.id}
+                                aria-describedby={`${option.id}-text`}
+                                type="radio"
+                                name="rendaFamiliar"
+                                value={option.value}
+                                checked={formData.rendaFamiliar === option.value}
+                                onChange={(e) => handleChange('rendaFamiliar', e.target.value)}
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                            />
+                        </div>
+                        <div className="ms-2 text-sm">
+                            <label htmlFor={option.id} className="font-medium text-gray-900 dark:text-gray-300">
+                                {option.label}
+                            </label>
+                            <p id={`${option.id}-text`} className="text-xs font-normal text-gray-500 dark:text-gray-300">
+                                {option.description}
+                            </p>
+                        </div>
+                    </div>
                 ))}
             </div>
             {isError && !formData.rendaFamiliar && (

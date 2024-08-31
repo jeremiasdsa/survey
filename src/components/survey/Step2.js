@@ -34,16 +34,16 @@ const Step2 = ({ mayorChoice, setMayorChoice }) => {
                         <div className="text-center text-sm font-medium">
                             {toTitleCase(candidate.nome)}
                         </div>
-                        {/*{candidate.numero && (*/}
+                        {candidate.numero && (
 
-                        {/*    <div*/}
-                        {/*        className="absolute bottom-14 right-2 bg-red-500 text-white rounded-full px-2 py-1"*/}
-                        {/*        style={{ backgroundColor: candidate.cor }}*/}
+                            <div
+                                className="absolute bottom-14 right-5 bg-red-500 text-white rounded-full px-2 py-1"
+                                style={{ backgroundColor: candidate.cor }}
 
-                        {/*    >*/}
-                        {/*        {candidate.numero}*/}
-                        {/*    </div>*/}
-                        {/*)}*/}
+                            >
+                                {candidate.numero}
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>
