@@ -15,9 +15,9 @@ const SaveStatus = ({ onNewSurvey }) => {
     }, []);
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
+        <div className="flex flex-col items-center justify-center h-screen pt-14">
             {isLoading && (
-                <div className="text-lg text-gray-800 dark:text-gray-200">
+                <div className="text-lg text-gray-800">
                     Salvando...
                     {/* Adiciona um spinner */}
                     <div className="loader mt-4 border-t-4 border-blue-500 rounded-full w-16 h-16 animate-spin"></div>

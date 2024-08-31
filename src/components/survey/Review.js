@@ -13,7 +13,7 @@ function toTitleCase(str) {
 const Review = ({ formData, onConfirm, onEdit }) => {
     return (
         <div className="review space-y-4">
-            <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Revisão das Respostas</h4>
+            <h4 className="text-lg font-semibold text-gray-800">Revisão das Respostas</h4>
 
             <div className="review-item">
                 <strong>Bairro:</strong> {formData.bairro}
