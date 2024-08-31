@@ -1,13 +1,12 @@
 import React from 'react';
-import './Step2.css';
 import { mayorOptions } from './data';
 
 function toTitleCase(str) {
     return str
-        .toLowerCase() // Converte tudo para minúsculas
-        .split(' ') // Divide a string em palavras
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitaliza a primeira letra de cada palavra
-        .join(' '); // Junta as palavras novamente com espaço
+        .toLowerCase()
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
 }
 
 const Step2 = ({ mayorChoice, setMayorChoice }) => {
@@ -16,27 +15,35 @@ const Step2 = ({ mayorChoice, setMayorChoice }) => {
     };
 
     return (
-        <div className="step2">
-            <h4>Selecione o candidato para Prefeito</h4>
-            <div className="candidate-grid">
+        <div className="flex flex-col items-center">
+            <h4 className="text-xl font-semibold mb-4">Considerando esses candidatos em quem você votaria? (ESTIMULADA)</h4>
+            <div className="grid grid-cols-2 gap-4">
                 {mayorOptions.map((candidate, index) => (
                     <div
                         key={index}
-                        className={`candidate-card ${mayorChoice === candidate.nome ? 'selected' : ''}`}
+                        className={`relative flex flex-col items-center p-2 rounded-lg shadow-lg cursor-pointer ${
+                            mayorChoice === candidate.nome ? 'border-4 border-green-700' : ''
+                        }`}
                         onClick={() => handleSelect(candidate.nome)}
                     >
-                        <img src={candidate.imagem} alt={candidate.nome} className="candidate-image" />
-                        <div className="candidate-info">
-                            <p>{toTitleCase(candidate.nome)}</p>
+                        <img
+                            src={candidate.imagem}
+                            alt={candidate.nome}
+                            className="rounded-full w-14 h-14 mb-2"
+                        />
+                        <div className="text-center text-sm font-medium">
+                            {toTitleCase(candidate.nome)}
                         </div>
-                        {candidate.numero && (
-                            <div
-                                className="candidate-number"
-                                style={{ backgroundColor: candidate.cor }}
-                            >
-                                {candidate.numero}
-                            </div>
-                        )}
+                        {/*{candidate.numero && (*/}
+
+                        {/*    <div*/}
+                        {/*        className="absolute bottom-14 right-2 bg-red-500 text-white rounded-full px-2 py-1"*/}
+                        {/*        style={{ backgroundColor: candidate.cor }}*/}
+
+                        {/*    >*/}
+                        {/*        {candidate.numero}*/}
+                        {/*    </div>*/}
+                        {/*)}*/}
                     </div>
                 ))}
             </div>

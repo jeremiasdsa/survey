@@ -24,13 +24,28 @@ const SaveStatus = ({ onNewSurvey }) => {
                 </div>
             )}
             {isSuccess && (
+
                 <div className="text-center">
-                    <p className="text-2xl font-semibold text-green-500">Salvo com Sucesso!</p>
-                    <button
-                        onClick={onNewSurvey}
-                        className="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-                    >
-                        Iniciar Novo Questionário
+
+                    <h2 className='text-xl font-semibold'>
+                        Iniciar Nova Pesquisa!
+                    </h2>
+                    <br/>
+
+                    <div className='mt-2'>
+                        <p className='text-justify'>
+                            <span className='font-medium'>Bom dia/tarde, eu sou ........</span> (mostrar
+                            crachá), da equipe do
+                            <span className='font-semibold'> Instituto de Pesquisa e Opinião.</span> Estamos realizando uma
+                            pesquisa na sua cidade e gostaríamos de contar com a sua participação. Será confidencial,
+                            conforme as normas da LGPD (Lei Geral da Proteção de Dados) e preservando o anonimato dos entrevistados, com uma análise das
+                            respostas agregadas. Você pode participar? Muito obrigado(a).
+                        </p>
+                    </div>
+                    <br/>
+
+                    <button onClick={onNewSurvey}
+                            className="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Iniciar
                     </button>
                 </div>
             )}

@@ -36,6 +36,11 @@ const Step1 = ({ formData, setFormData, isError }) => {
                 handleChange={handleChange}
                 isError={isError}
             />
+            <IncomeQuestion
+                formData={formData}
+                handleChange={handleChange}
+                isError={isError}
+            />
         </div>
     );
 };
@@ -50,7 +55,7 @@ const LocationQuestion = ({ formData, handleChange, isError }) => (
         <div className="mt-4 space-y-1 space-y-2 text-sm font-medium text-zinc-700">
             <input
                 type="text"
-                placeholder="Bairro Lagoa"
+                placeholder="Bairro Lagoa (ou Zona Rural)"
                 value={formData.bairro || ''}
                 onChange={(e) => handleChange('bairro', e.target.value)}
                 className={`w-full p-3 border ${isError && !formData.bairro ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600`}
@@ -63,7 +68,7 @@ const LocationQuestion = ({ formData, handleChange, isError }) => (
         <div className="mt-4 space-y-1 space-y-2 text-sm font-medium text-zinc-700">
             <input
                 type="text"
-                placeholder="Rua"
+                placeholder="Rua (ou ZN)"
                 value={formData.rua || ''}
                 onChange={(e) => handleChange('rua', e.target.value)}
                 className={`w-full p-3 border ${isError && !formData.rua ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600`}
@@ -136,9 +141,7 @@ const AgeQuestion = ({ formData, handleChange, isError }) => (
                     </label>
                 ))}
             </div>
-            {isError && !formData.faixaEtaria && (
-                <p className="text-red-500 text-sm mt-2">Este campo é obrigatório.</p>
-            )}
+
         </div>
     </div>
 );
@@ -170,6 +173,39 @@ const EducationQuestion = ({ formData, handleChange, isError }) => (
                 ))}
             </div>
             {isError && !formData.escolaridade && (
+                <p className="text-red-500 text-sm mt-2">Este campo é obrigatório.</p>
+            )}
+        </div>
+    </div>
+);
+
+//****************** //
+
+const IncomeQuestion = ({ formData, handleChange, isError }) => (
+    <div className="dark:text-zinc-400">
+        <h4 className="font-medium">Renda Familiar</h4>
+
+        <div className="mb-4">
+            <div className={`space-y-2 ${isError && !formData.rendaFamiliar ? 'border-red-500' : ''}`}>
+                {[
+                    'Até 2 salários mínimos (até R$2.824,00)',
+                    'De 2 a 5 salários mínimos (de R$2.824,00 a R$7.060,00)',
+                    'Acima de 5 salários mínimos (acima de R$7.060,00)'
+                ].map(option => (
+                    <label key={option} className="block">
+                        <input
+                            type="radio"
+                            name="rendaFamiliar"
+                            value={option}
+                            checked={formData.rendaFamiliar === option}
+                            onChange={(e) => handleChange('rendaFamiliar', e.target.value)}
+                            className="mr-2"
+                        />
+                        {option}
+                    </label>
+                ))}
+            </div>
+            {isError && !formData.rendaFamiliar && (
                 <p className="text-red-500 text-sm mt-2">Este campo é obrigatório.</p>
             )}
         </div>

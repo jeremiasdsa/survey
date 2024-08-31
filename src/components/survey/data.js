@@ -94,14 +94,16 @@ const mayorOptions = [
         cor: "#8b0000"  // Vermelho escuro para Gleds
     },
     {
-        nome: "Branco",
+        nome: "Não Sabe/ Não respondeu",
+
+
         partido: "",
         numero: "",
         imagem: `${process.env.PUBLIC_URL}/branco.png`,
         cor: "#ffffff"  // isaac_coelhinho para opção isaac_coelhinho
     },
     {
-        nome: "Nulo",
+        nome: "Nenhum/ Branco/ Nulo",
         partido: "",
         numero: "",
         imagem: `${process.env.PUBLIC_URL}/branco.png`,
