@@ -5,6 +5,7 @@ import { database, fireDb } from "../../firebase";
 import { openDatabase } from '../../storage';
 import Step1 from './Step1';
 import Step2 from './Step2';
+import Step22 from './Step22';
 import Step3 from './Step3';
 import Review from './Review';
 import ActionsBar from "../ActionsBar";
@@ -38,7 +39,9 @@ const SurveyForm = ({ researcherName, theme }) => {
         } else if (step === 2) {
             requiredFields = ['bairro', 'rua', 'genero', 'faixaEtaria', 'escolaridade', 'rendaFamiliar', 'mayorChoice'];
         } else if (step === 3) {
-            requiredFields = ['bairro', 'rua', 'genero', 'faixaEtaria', 'escolaridade', 'rendaFamiliar', 'mayorChoice', 'councilorChoice'];
+            requiredFields = ['bairro', 'rua', 'genero', 'faixaEtaria', 'escolaridade', 'rendaFamiliar', 'mayorChoice', 'aVoidMayorChoice'];
+        } else if (step === 4) {
+            requiredFields = ['bairro', 'rua', 'genero', 'faixaEtaria', 'escolaridade', 'rendaFamiliar', 'mayorChoice', 'aVoidMayorChoice', 'councilorChoice'];
         }
 
         // Verificar se todos os campos obrigatórios estão preenchidos
@@ -138,6 +141,14 @@ const SurveyForm = ({ researcherName, theme }) => {
                     )}
 
                     {step === 3 && (
+                        <Step22
+                            aVoidMayorChoice={formData.aVoidMayorChoice}
+                            setAvoidMayorChoice={(value) => setFormData({ ...formData, aVoidMayorChoice: value })}
+                            isError={isError}
+                        />
+                    )}
+
+                    {step === 4 && (
                         <Step3
                             councilorChoice={formData.councilorChoice}
                             setCouncilorChoice={(value) => setFormData({ ...formData, councilorChoice: value })}
@@ -145,7 +156,7 @@ const SurveyForm = ({ researcherName, theme }) => {
                         />
                     )}
 
-                    {step === 4 && (
+                    {step === 5 && (
                         <Review
                             formData={formData}
                             onConfirm={handleConfirm}
