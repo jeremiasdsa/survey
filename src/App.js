@@ -25,9 +25,9 @@ function syncDataWithFirebase() {
       });
 
       // Limpar os dados da IndexedDB após a sincronização
-      const clearTransaction = db.transaction("dataStore", "readwrite");
-      const clearStore = clearTransaction.objectStore("dataStore");
-      clearStore.clear();
+      // const clearTransaction = db.transaction("dataStore", "readwrite");
+      // const clearStore = clearTransaction.objectStore("dataStore");
+      // clearStore.clear();
       console.log("Dados sincronizados e IndexedDB limpo.");
     };
 

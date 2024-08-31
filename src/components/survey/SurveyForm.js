@@ -9,6 +9,7 @@ import Step2 from './Step2';
 import Step3 from './Step3';
 import Review from './Review';
 import ActionsBar from "../ActionsBar";
+import SaveStatus from './SaveStatus'; // Importa o novo componente
 
 const updateDataLocally = async (data, synced) => {
     try {
@@ -24,29 +25,34 @@ const updateDataLocally = async (data, synced) => {
 
 const SurveyForm = ({ researcherName, theme }) => {
     const [step, setStep] = useState(1);
-    const [neighborhood, setNeighborhood] = useState('');
-    const [street, setStreet] = useState('');
-    const [mayorChoice, setMayorChoice] = useState('');
-    const [councilorChoice, setCouncilorChoice] = useState('');
+    const [formData, setFormData] = useState({});
     const [feedbackMessage, setFeedbackMessage] = useState('');
     const [isError, setIsError] = useState(false);
+    const [showSaveStatus, setShowSaveStatus] = useState(false); // Estado para exibir o status de salvamento
 
     const handleNext = () => {
-        if (step === 1 && (!neighborhood || !street)) {
-            setFeedbackMessage('Por favor, preencha o Bairro e a Rua.');
+        let requiredFields = [];
+
+        // Defina os campos obrigatórios com base na etapa atual
+        if (step === 1) {
+            requiredFields = ['bairro', 'rua', 'genero', 'faixaEtaria', 'escolaridade'];
+        } else if (step === 2) {
+            requiredFields = ['bairro', 'rua', 'genero', 'faixaEtaria', 'escolaridade', 'mayorChoice'];
+        } else if (step === 3) {
+            requiredFields = ['bairro', 'rua', 'genero', 'faixaEtaria', 'escolaridade', 'mayorChoice', 'councilorChoice'];
+        }
+
+        // Verificar se todos os campos obrigatórios estão preenchidos
+        const allFieldsFilled = requiredFields.every(fieldId => {
+            return formData[fieldId] !== undefined && formData[fieldId] !== '';
+        });
+
+        if (!allFieldsFilled) {
+            setFeedbackMessage('Por favor, preencha todos os campos obrigatórios.');
             setIsError(true);
             return;
         }
-        if (step === 2 && !mayorChoice) {
-            setFeedbackMessage('Por favor, selecione um candidato a prefeito.');
-            setIsError(true);
-            return;
-        }
-        if (step === 3 && !councilorChoice) {
-            setFeedbackMessage('Por favor, selecione um candidato a vereador.');
-            setIsError(true);
-            return;
-        }
+
         setIsError(false);
         setFeedbackMessage('');
         setStep(step + 1);
@@ -63,28 +69,24 @@ const SurveyForm = ({ researcherName, theme }) => {
             const newSurvey = {
                 id: crypto.randomUUID(),
                 researcher: researcherName,
-                neighborhood,
-                street,
-                mayorChoice,
-                councilorChoice,
+                ...formData,
                 timestamp: Date.now(),
             };
 
-            // Salvar localmente no IndexedDB
+            // Save locally in IndexedDB
             await updateDataLocally(newSurvey, false);
 
-            // Tentar salvar no Firebase Realtime Database
+            // Save to Firebase Realtime Database
             push(ref(database, 'surveys'), newSurvey)
                 .then(async () => {
                     console.log('Dados salvos no Realtime.');
-                    // Atualizar o status de sincronização localmente
-                    await updateDataLocally(newSurvey, true);
+                    await updateDataLocally(newSurvey, true); // Update sync status
                 })
                 .catch((err) => {
                     console.error('realtime - error', err);
                 });
 
-            // Salvar no Firestore
+            // Save to Firestore
             setDoc(doc(fireDb, `surveys/${newSurvey.id}`), newSurvey)
                 .then(() => {
                     console.log('Dados salvos no Firestore.');
@@ -93,74 +95,73 @@ const SurveyForm = ({ researcherName, theme }) => {
                     console.log('firestore - error', err);
                 });
 
-            console.log("Dados salvos no Firestore.");
-
             setFeedbackMessage(`${navigator.onLine ? 'Dados salvos na nuvem' : 'Dados salvos localmente para posterior sincronização'}`);
             setIsError(false);
 
-            // Redirecionar para iniciar uma nova pesquisa
-            resetForm();
+            // // Redirect to start a new survey
+            // resetForm();
+            // Exibir status de salvamento
+            setShowSaveStatus(true);
         } catch (err) {
             console.error("Erro ao salvar os dados:", err);
-            setFeedbackMessage('Erro ao salvar no Firebase. Os dados serão sincronizados automaticamente quando a conexão for restabelecida.'); //TODO think on a better message
+            setFeedbackMessage('Erro ao salvar no Firebase. Os dados serão sincronizados automaticamente quando a conexão for restabelecida.');
             setIsError(true);
             resetForm();
         }
     };
 
     const resetForm = () => {
-        setNeighborhood('');
-        setStreet('');
-        setMayorChoice('');
-        setCouncilorChoice('');
+        setFormData({});
         setStep(1);
+        setShowSaveStatus(false); // Reinicia o estado de salvamento
     };
 
     return (
         <div className={`survey-form ${theme}`}>
-            {step === 1 && (
-                <Step1
-                    neighborhood={neighborhood}
-                    setNeighborhood={setNeighborhood}
-                    street={street}
-                    setStreet={setStreet}
-                    isError={isError}
-                />
-            )}
+            {showSaveStatus ? (
+                <SaveStatus onNewSurvey={resetForm} /> // Exibe a tela de status de salvamento
+            ) : (
+                <>
+                    {step === 1 && (
+                        <Step1
+                            formData={formData}
+                            setFormData={setFormData}
+                            isError={isError}
+                        />
+                    )}
 
-            {step === 2 && (
-                <Step2
-                    mayorChoice={mayorChoice}
-                    setMayorChoice={setMayorChoice}
-                    isError={isError}
-                />
-            )}
+                    {step === 2 && (
+                        <Step2
+                            mayorChoice={formData.mayorChoice}
+                            setMayorChoice={(value) => setFormData({ ...formData, mayorChoice: value })}
+                            isError={isError}
+                        />
+                    )}
 
-            {step === 3 && (
-                <Step3
-                    councilorChoice={councilorChoice}
-                    setCouncilorChoice={setCouncilorChoice}
-                    isError={isError}
-                />
-            )}
+                    {step === 3 && (
+                        <Step3
+                            councilorChoice={formData.councilorChoice}
+                            setCouncilorChoice={(value) => setFormData({ ...formData, councilorChoice: value })}
+                            isError={isError}
+                        />
+                    )}
 
-            {step === 4 && (
-                <Review
-                    neighborhood={neighborhood}
-                    street={street}
-                    mayorChoice={mayorChoice}
-                    councilorChoice={councilorChoice}
-                    onConfirm={handleConfirm}
-                    onEdit={handlePrevious}
-                />
-            )}
+                    {step === 4 && (
+                        <Review
+                            formData={formData}
+                            onConfirm={handleConfirm}
+                            onEdit={handlePrevious}
+                        />
+                    )}
 
             <ActionsBar next={handleNext} prev={handlePrevious} step={step}/>
 
-            {feedbackMessage && (
-                <p className={`feedback-message ${isError ? 'error' : 'success'}`} aria-live="assertive">
-                    {feedbackMessage}
-                </p>
+                    {feedbackMessage && (
+                        <p className={`feedback-message ${isError ? 'error' : 'success'}`} aria-live="assertive">
+                            {feedbackMessage}
+                        </p>
+                    )}
+                </>
             )}
         </div>
     );

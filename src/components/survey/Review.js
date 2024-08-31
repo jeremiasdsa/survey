@@ -10,25 +10,36 @@ function toTitleCase(str) {
         .join(' ');
 }
 
-const Review = ({ neighborhood, street, mayorChoice, councilorChoice, onConfirm, onEdit }) => {
+const Review = ({ formData, onConfirm, onEdit }) => {
     return (
-        <div className="review">
-            <h4>Revisão das Respostas</h4>
+        <div className="review space-y-4">
+            <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Revisão das Respostas</h4>
+
             <div className="review-item">
-                <strong>Bairro:</strong> {neighborhood}
+                <strong>Bairro:</strong> {formData.bairro}
             </div>
             <div className="review-item">
-                <strong>Rua:</strong> {street}
+                <strong>Rua:</strong> {formData.rua}
             </div>
             <div className="review-item">
-                <strong>Candidato a Prefeito:</strong> {toTitleCase(mayorChoice)}
+                <strong>Gênero:</strong> {toTitleCase(formData.genero)}
             </div>
             <div className="review-item">
-                <strong>Candidato a Vereador:</strong> {toTitleCase(councilorChoice)}
+                <strong>Faixa Etária:</strong> {toTitleCase(formData.faixaEtaria)}
             </div>
-            <div className="button-group">
-                <button onClick={onEdit}>Editar</button>
-                <button onClick={onConfirm}>Salvar</button>
+            <div className="review-item">
+                <strong>Escolaridade:</strong> {toTitleCase(formData.escolaridade)}
+            </div>
+            <div className="review-item">
+                <strong>Candidato a Prefeito:</strong> {toTitleCase(formData.mayorChoice)}
+            </div>
+            <div className="review-item">
+                <strong>Candidato a Vereador:</strong> {toTitleCase(formData.councilorChoice)}
+            </div>
+
+            <div className="button-group flex justify-between">
+                <button onClick={onEdit} className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400">Editar</button>
+                <button onClick={onConfirm} className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Salvar</button>
             </div>
         </div>
     );
