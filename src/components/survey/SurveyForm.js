@@ -10,6 +10,7 @@ import Step3 from './Step3';
 import Review from './Review';
 import ActionsBar from "../ActionsBar";
 import SaveStatus from './SaveStatus'; // Importa o novo componente
+import Alert from './Alert'; // Import the new Alert component
 
 const updateDataLocally = async (data, synced) => {
     try {
@@ -120,8 +121,11 @@ const SurveyForm = ({ researcherName, theme }) => {
 
     return (
         <div>
+            {feedbackMessage && (
+                <Alert message={feedbackMessage} type={isError ? 'error' : 'success'} />
+            )}
             {showSaveStatus ? (
-                <SaveStatus onNewSurvey={resetForm} /> // Exibe a tela de status de salvamento
+                <SaveStatus onNewSurvey={resetForm} />
             ) : (
                 <>
                     {step === 1 && (
@@ -166,15 +170,12 @@ const SurveyForm = ({ researcherName, theme }) => {
 
                     <ActionsBar next={handleNext} prev={handlePrevious} save={handleConfirm} step={step} maxSteps={5} />
 
-                    {feedbackMessage && (
-                        <p className={`feedback-message ${isError ? 'error' : 'success'}`} aria-live="assertive">
-                            {feedbackMessage}
-                        </p>
-                    )}
+
                 </>
             )}
         </div>
     );
 };
+
 
 export default SurveyForm;
