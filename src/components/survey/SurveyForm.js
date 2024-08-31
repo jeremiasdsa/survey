@@ -3,11 +3,11 @@ import { ref, push } from 'firebase/database';
 import { setDoc, doc } from 'firebase/firestore';
 import { database, fireDb } from "../../firebase";
 import { openDatabase } from '../../storage';
-import './SurveyForm.css';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 import Review from './Review';
+import ActionsBar from "../ActionsBar";
 import SaveStatus from './SaveStatus'; // Importa o novo componente
 
 const updateDataLocally = async (data, synced) => {
@@ -22,12 +22,11 @@ const updateDataLocally = async (data, synced) => {
     }
 }
 
-const SurveyForm = ({ researcherName }) => {
+const SurveyForm = ({ researcherName, theme }) => {
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({});
     const [feedbackMessage, setFeedbackMessage] = useState('');
     const [isError, setIsError] = useState(false);
-    const [theme, setTheme] = useState('light');
     const [showSaveStatus, setShowSaveStatus] = useState(false); // Estado para exibir o status de salvamento
 
     const handleNext = () => {
@@ -116,18 +115,8 @@ const SurveyForm = ({ researcherName }) => {
         setShowSaveStatus(false); // Reinicia o estado de salvamento
     };
 
-    const toggleTheme = () => {
-        setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
-    };
-
     return (
-        <div className={`survey-form ${theme}`}>
-            <div className="theme-toggle">
-                <button onClick={toggleTheme}>
-                    {theme === 'light' ? 'Tema Escuro' : 'Tema Claro'}
-                </button>
-            </div>
-
+        <div>
             {showSaveStatus ? (
                 <SaveStatus onNewSurvey={resetForm} /> // Exibe a tela de status de salvamento
             ) : (
@@ -164,11 +153,7 @@ const SurveyForm = ({ researcherName }) => {
                         />
                     )}
 
-                    <div className="button-group">
-                        {step > 1 && step < 4 && <button onClick={handlePrevious}>Anterior</button>}
-                        {step < 3 && <button onClick={handleNext}>Próximo</button>}
-                        {step === 3 && <button onClick={handleNext}>Revisar</button>}
-                    </div>
+                    <ActionsBar next={handleNext} prev={handlePrevious} save={handleConfirm} step={step}/>
 
                     {feedbackMessage && (
                         <p className={`feedback-message ${isError ? 'error' : 'success'}`} aria-live="assertive">

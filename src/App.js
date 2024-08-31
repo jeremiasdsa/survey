@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Login from './components/login/Login';
+import Login from './components/Login';
 import SurveyForm from './components/survey/SurveyForm';
 import SyncStatus from './components/SyncStatus';
 import { database } from "./firebase";
 import { openDatabase } from "./storage";
 import { ref, push } from 'firebase/database';
 import HeaderBar from './components/HeaderBar';
-import TabBar from './components/TabBar';
-import './index.css'; // Importa o Tailwind CSS
+import './index.css';
+import SaveStatus from "./components/survey/SaveStatus"; // Importa o Tailwind CSS
 
 // Função para sincronizar dados do IndexedDB com o Firebase
 function syncDataWithFirebase() {
@@ -42,6 +42,7 @@ function syncDataWithFirebase() {
 
 function App() {
   const [researcherName, setResearcherName] = useState('');
+  const [theme, setTheme] = useState('light');
 
   // Sincronizar dados ao carregar o aplicativo se estiver online
   useEffect(() => {
@@ -69,45 +70,22 @@ function App() {
     setResearcherName(name);
   };
 
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
+
   return (
-      <div className="app">
-        <HeaderBar/>
-        <main
-            /**
-             * Padding top = `appbar` height
-             * Padding bottom = `bottom-nav` height
-             */
-            className='mx-auto max-w-screen-md pt-20 pb-16 px-safe sm:pb-0'
-        >
-          <div className="p-6">
-            {researcherName ? (
-                <>
-                  <SurveyForm researcherName={researcherName}/>
-                  <SyncStatus/>
-                </>
-            ) : (
-                <Login onLogin={handleLogin}/>
-            )}
-          </div>
-        </main>
-        <TabBar/>
+      <div className={theme+" dark:border-zinc-600 bg-zinc-200 dark:bg-zinc-600 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400"}>
+        <HeaderBar toggleTheme={toggleTheme}/>
+          {researcherName ? (
+              <div className='mx-auto max-w-screen-md min-h-screen pt-14 pb-14 px-safe sm:pb-0 dark:hover:text-zinc-50'>
+                <SurveyForm researcherName={researcherName} theme={theme}/>
+                {/*<SyncStatus/>*/}
+              </div>
+          ) : (
+              <Login onLogin={handleLogin} theme={theme}/>
+          )}
       </div>
-
-
-      // <div className="app">
-      //   <HeaderBar />
-      //   <div className="content">
-      //     {researcherName ? (
-      //         <>
-      //           <SurveyForm researcherName={researcherName} />
-      //           <SyncStatus />
-      //         </>
-      //     ) : (
-      //         <Login onLogin={handleLogin} />
-      //     )}
-      //   </div>
-      //   <TabBar />
-      // </div>
   );
 }
 

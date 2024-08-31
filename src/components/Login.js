@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { doc, getDoc } from "firebase/firestore";
-import { fireDb } from '../../firebase';
-import { allowedUsers } from "../../data";
+import { fireDb } from '../firebase';
+import { allowedUsers } from "../data";
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, theme }) => {
     const [name, setName] = useState('root');
     const [pin, setPin] = useState('P@ssw0rd');
     const [error, setError] = useState('');
@@ -61,9 +61,9 @@ const Login = ({ onLogin }) => {
     }, []);
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div className="flex justify-center items-center min-h-screen">
             <form
-                className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 max-w-xs w-full"
+                className="shadow-lg rounded-lg p-8 max-w-xs w-full"
                 onSubmit={handleSubmit}
             >
                 <input

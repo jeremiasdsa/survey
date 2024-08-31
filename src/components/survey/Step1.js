@@ -1,9 +1,4 @@
 import React from 'react';
-import './Step1.css';
-// import LocationQuestion from './LocationQuestion';
-// import GenderQuestion from './GenderQuestion';
-// import AgeQuestion from './AgeQuestion';
-// import EducationQuestion from './EducationQuestion';
 
 const Step1 = ({ formData, setFormData, isError }) => {
 
@@ -50,7 +45,7 @@ const Step1 = ({ formData, setFormData, isError }) => {
 
 
 const LocationQuestion = ({ formData, handleChange, isError }) => (
-    <div className="dark:text-zinc-400">
+    <div className="">
         <h4 className="font-medium">Localização</h4>
         <div className="mt-4 space-y-1 space-y-2 text-sm font-medium text-zinc-700">
             <input
@@ -58,7 +53,7 @@ const LocationQuestion = ({ formData, handleChange, isError }) => (
                 placeholder="Bairro Lagoa (ou Zona Rural)"
                 value={formData.bairro || ''}
                 onChange={(e) => handleChange('bairro', e.target.value)}
-                className={`w-full p-3 border ${isError && !formData.bairro ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600`}
+                className={`w-full p-3 border ${isError && !formData.bairro ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500`}
             />
             {isError && !formData.bairro && (
                 <p className="text-red-500 text-sm mt-2">Este campo é obrigatório.</p>
@@ -71,7 +66,7 @@ const LocationQuestion = ({ formData, handleChange, isError }) => (
                 placeholder="Rua (ou ZN)"
                 value={formData.rua || ''}
                 onChange={(e) => handleChange('rua', e.target.value)}
-                className={`w-full p-3 border ${isError && !formData.rua ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600`}
+                className={`w-full p-3 border ${isError && !formData.rua ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500`}
             />
             {isError && !formData.rua && (
                 <p className="text-red-500 text-sm mt-2">Este campo é obrigatório.</p>
@@ -84,7 +79,7 @@ const LocationQuestion = ({ formData, handleChange, isError }) => (
 
 
 const GenderQuestion = ({formData, handleChange, isError}) => (
-    <div className="dark:text-zinc-400">
+    <div className="">
         <h4 className="font-medium">Gênero</h4>
         <div className="mb-4">
             <div className={`radio-group ${isError && !formData.genero ? 'border-red-500' : ''}`}>
@@ -123,7 +118,7 @@ const GenderQuestion = ({formData, handleChange, isError}) => (
 
 
 const AgeQuestion = ({ formData, handleChange, isError }) => (
-    <div className="dark:text-zinc-400">
+    <div className="">
         <h4 className="font-medium">Faixa Etária</h4>
         <div className="mb-4">
             <div className={`space-y-2 ${isError && !formData.faixaEtaria ? 'border-red-500' : ''}`}>
@@ -150,7 +145,7 @@ const AgeQuestion = ({ formData, handleChange, isError }) => (
 
 
 const EducationQuestion = ({ formData, handleChange, isError }) => (
-    <div className="dark:text-zinc-400">
+    <div className="">
         <h4 className="font-medium">Escolaridade</h4>
 
         <div className="mb-4">

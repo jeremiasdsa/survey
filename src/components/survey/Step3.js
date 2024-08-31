@@ -27,13 +27,22 @@ const Step3 = ({ councilorChoice, setCouncilorChoice, onPrevious, onNext }) => {
     return (
         <div className="p-4 bg-zinc-900 min-h-screen text-white">
             <h4 className="text-lg font-semibold mb-4 text-center">Selecione o candidato para Vereador.</h4>
-            <input
-                type="text"
-                placeholder="Procurar por nome ou número"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full p-2 mb-4 text-black rounded-lg"
-            />
+            <form className="max-w-md mx-auto">
+                <div className="relative">
+                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input onChange={(e) => setSearchTerm(e.target.value)}
+                           type="text"
+                           id="default-search-candidate"
+                           value={searchTerm}
+                           className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           placeholder="Procurar por nome ou número"/>
+                </div>
+            </form>
             <div className="grid grid-cols-3 gap-4">
                 {filteredCandidates.length > 0 ? (
                     filteredCandidates.map((candidate, index) => (
@@ -45,7 +54,7 @@ const Step3 = ({ councilorChoice, setCouncilorChoice, onPrevious, onNext }) => {
                                     : 'ring-2 ring-gray-500 hover:ring-green-300'
                             }`}
                             onClick={() => handleSelect(candidate.nome)}
-                            style={{ '--candidate-color': partidoCores[candidate.partido] || '#000000' }}
+                            style={{'--candidate-color': partidoCores[candidate.partido] || '#000000'}}
                         >
                             <div className="flex items-center justify-center mb-2">
                                 <img
@@ -58,7 +67,7 @@ const Step3 = ({ councilorChoice, setCouncilorChoice, onPrevious, onNext }) => {
                                 <div className="text-sm font-medium mb-1">{toTitleCase(candidate.nome)}</div>
                                 <div
                                     className="text-white text-xs px-2 py-1 rounded-full"
-                                    style={{ backgroundColor: partidoCores[candidate.partido] || '#000000' }}
+                                    style={{backgroundColor: partidoCores[candidate.partido] || '#000000'}}
                                 >
                                     {candidate.numero}
                                 </div>
