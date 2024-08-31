@@ -43,11 +43,12 @@ const Step1 = ({ formData, setFormData, isError }) => {
 
 /******/
 
-
 const LocationQuestion = ({ formData, handleChange, isError }) => (
     <div className="">
-        <h4 className="font-medium">Localização</h4>
-        <div className="mt-4 space-y-1 space-y-2 text-sm font-medium text-zinc-700">
+        <h4 className="font-medium text-lg">Localização</h4>
+
+        {/* Input para o campo "Bairro" */}
+        <div className="mt-4">
             <input
                 type="text"
                 placeholder="Bairro Lagoa (ou Zona Rural)"
@@ -60,7 +61,8 @@ const LocationQuestion = ({ formData, handleChange, isError }) => (
             )}
         </div>
 
-        <div className="mt-4 space-y-1 space-y-2 text-sm font-medium text-zinc-700">
+        {/* Input para o campo "Rua" */}
+        <div className="mt-4">
             <input
                 type="text"
                 placeholder="Rua (ou ZN)"
@@ -122,7 +124,11 @@ const AgeQuestion = ({ formData, handleChange, isError }) => (
         <h4 className="font-medium">Faixa Etária</h4>
         <div className="mb-4">
             <div className={`space-y-2 ${isError && !formData.faixaEtaria ? 'border-red-500' : ''}`}>
-                {['16-24 anos', '25-29 anos', '30-39 anos', '40-49 anos', '50 anos ou mais'].map(option => (
+                {['16-24 anos',
+                    '25-29 anos',
+                    '30-39 anos',
+                    '40-49 anos',
+                    '50 anos ou mais'].map(option => (
                     <label key={option} className="block">
                         <input
                             type="radio"
@@ -136,7 +142,9 @@ const AgeQuestion = ({ formData, handleChange, isError }) => (
                     </label>
                 ))}
             </div>
-
+            {isError && !formData.faixaEtaria && (
+                <p className="text-red-500 text-sm mt-2">Este campo é obrigatório.</p>
+            )}
         </div>
     </div>
 );

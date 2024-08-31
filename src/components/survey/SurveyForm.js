@@ -164,7 +164,7 @@ const SurveyForm = ({ researcherName, theme }) => {
                         />
                     )}
 
-                    <ActionsBar next={handleNext} prev={handlePrevious} save={handleConfirm} step={step}/>
+                    <ActionsBar next={handleNext} prev={handlePrevious} save={handleConfirm} step={step} maxSteps={5} />
 
                     {feedbackMessage && (
                         <p className={`feedback-message ${isError ? 'error' : 'success'}`} aria-live="assertive">
