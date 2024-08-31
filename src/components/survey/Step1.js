@@ -1,9 +1,4 @@
 import React from 'react';
-import './Step1.css';
-// import LocationQuestion from './LocationQuestion';
-// import GenderQuestion from './GenderQuestion';
-// import AgeQuestion from './AgeQuestion';
-// import EducationQuestion from './EducationQuestion';
 
 const Step1 = ({ formData, setFormData, isError }) => {
 
