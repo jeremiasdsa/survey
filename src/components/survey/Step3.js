@@ -38,6 +38,7 @@ const Step3 = ({ councilorChoice, setCouncilorChoice, onPrevious, onNext }) => {
                             <path stroke="currentColor" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                         </svg>
                     </div>
+
                     <input onChange={(e) => setSearchTerm(e.target.value)}
                            type="text"
                            id="default-search-candidate"
@@ -46,39 +47,55 @@ const Step3 = ({ councilorChoice, setCouncilorChoice, onPrevious, onNext }) => {
                            placeholder="Procurar por nome ou número"/>
                 </div>
             </form>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-4 md:grid-cols5 gap-0.5">
                 {filteredCandidates.length > 0 ? (
                     filteredCandidates.map((candidate, index) => (
                         <div
                             key={index}
-                            className={`p-4 rounded-lg cursor-pointer transition-all ${
-                                councilorChoice === candidate.nome
-                                    ? 'ring-4 ring-green-500'
-                                    : 'ring-2 ring-gray-500 hover:ring-green-300'
-                            }`}
+                            className="relative flex flex-col items-center"
+                            // className={`relative flex flex-col items-center rounded-lg shadow-lg ${
+                            //     councilorChoice === candidate.nome
+                            //         ? 'ring-2 ring-green-500'
+                            //         : 'ring-1 ring-gray-500 hover:ring-green-300'
+                            // }`}
                             onClick={() => handleSelect(candidate.nome)}
-                            style={{'--candidate-color': partidoCores[candidate.partido] || '#000000'}}
+                            // style={{'--candidate-color': partidoCores[candidate.partido] || '#000000'}}
                         >
-                            <div className="flex items-center justify-center mb-2">
+
+                            <div className="">
                                 <img
                                     src={candidate.image}
                                     alt={candidate.nome}
-                                    className="w-12 h-12 rounded-full"
+                                    className={`rounded-full w-16 h-16 mb-0 ${
+                                        councilorChoice === candidate.nome
+                                            ? 'shadow-sm shadow-green-700 border-2 border-green-700 bg-green-600'
+                                            : 'filter grayscale'
+                                    }`}
+                                    style={{borderRadius: '50%'}}
                                 />
+
                             </div>
-                            <div className="text-center">
-                                <div className="text-sm font-medium mb-1">{toTitleCase(candidate.nome)}</div>
-                                <div
-                                    className="text-white text-xs px-2 py-1 rounded-full"
-                                    style={{backgroundColor: partidoCores[candidate.partido] || '#000000'}}
-                                >
-                                    {candidate.numero}
-                                </div>
+
+                            <div
+                                className={`text-center items-center text-xs font-sans font-semibold mb-1 ${
+                                    councilorChoice === candidate.nome
+                                        ? 'text-green-700'
+                                        : 'text-gray-700 dark:text-gray-300'
+                                }`}
+                            >
+                                {toTitleCase(candidate.nome)}
                             </div>
+                            {/*<div*/}
+                            {/*    className="w-12 text-xs font-sans font-medium  text-gray-700 dark:text-gray-300 px-0 py-0 rounded-full"*/}
+                            {/*>*/}
+                            {/*    {candidate.numero}*/}
+                            {/*</div>*/}
+
+
                         </div>
                     ))
                 ) : (
-                    <p className="col-span-2 text-center">
+                    <p className="col-span-4 text-lg font-sans text-gray-600 dark:text-red-500-300 ml-8 mb-6 ">
                         Nenhum candidato encontrado para o termo "{searchTerm}".
                     </p>
                 )}

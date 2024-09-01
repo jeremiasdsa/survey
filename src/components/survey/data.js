@@ -11,9 +11,9 @@ const partidoCores = {
 };
 // Lista de candidatos a vereador
 const councilorOptions = [
-    { nome: "ADINAEL CABELEIREIRO", partido: "PV", numero: 43333, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
-    { nome: "ADRIANA SINTAXE", partido: "REDE", numero: 18500, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
-    { nome: "ANA LAUREANO", partido: "PSD", numero: 55789, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
+    { nome: "ADINAEL CABELEIREIRO", partido: "PV", numero: 43333, image: `${process.env.PUBLIC_URL}/claudio_regis.png` },
+    { nome: "ADRIANA SINTAXE", partido: "REDE", numero: 18500, image: `${process.env.PUBLIC_URL}/claudio_regis.png` },
+    { nome: "ANA LAUREANO", partido: "PSD", numero: 55789, image: `${process.env.PUBLIC_URL}/claudio_regis.png` },
     { nome: "APARECIDA NAZÁRIO", partido: "PSD", numero: 55333, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
     { nome: "BATISTA RADICAL", partido: "PT", numero: 13676, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
     { nome: "BOSCO", partido: "REDE", numero: 18555, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },

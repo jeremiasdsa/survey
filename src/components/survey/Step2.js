@@ -31,7 +31,7 @@ const Step2 = ({ mayorChoice, setMayorChoice }) => {
                         <img
                             src={candidate.imagem}
                             alt={candidate.nome}
-                            className={`rounded-full w-16 h-16 mb-0 ${
+                            className={`rounded-full w-16 h-16 mb-2 ${
                                 mayorChoice === candidate.nome
                                     ? 'shadow-green-300 border-1 border-green-700 bg-green-600'
                                     : 'filter grayscale'

@@ -18,9 +18,9 @@ const Step22 = ({ aVoidMayorChoice, setAvoidMayorChoice }) => {
     return (
         <div className="flex flex-col items-center">
                 <p className="text-lg font-sans font-light text-gray-700 dark:text-gray-300 mb-6 ">
-                    Considerando esses candidatos em <span className='font-medium'>quem você NAO votaria?</span></p>
+                    Entre esses candidatos, em quem você<span className='font-medium'> NAO </span>votaria?<span className='font-medium'> Quem NAO merece o seu voto?</span></p>
             <div className="grid grid-cols-2 gap-4">
-                {mayorOptions.map((candidate, index) => (
+                {mayorOptions.toReversed().map((candidate, index) => (
                     <div
                         key={index}
                         className={`relative flex flex-col items-center w-28 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg ${

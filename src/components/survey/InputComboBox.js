@@ -13,7 +13,9 @@ const InputComboBox = ({ value, onChange, placeholder }) => {
         "Baixa Verde",
         "Bela Vista",
         "Brito Lyra",
-        "Padre Cícero"
+        "Padre Cícero",
+        "Alto da Colina",
+        "Flórida"
     ].sort();
 
     const handleInputChange = (e) => {
