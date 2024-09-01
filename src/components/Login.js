@@ -92,7 +92,8 @@ const Login = ({ onLogin, theme }) => {
                 >
                     Entrar
                 </button>
-                <div className="mt-6 text-gray-500 text-center text-xs">
+
+                <div className="mt-3 text-center text-xs font-mono text-zinc-900 dark:text-zinc-50">
                     <h1>version 1.1</h1>
                 </div>
             </form>

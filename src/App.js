@@ -72,6 +72,7 @@ function App() {
 
   const toggleTheme = () => {
     setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+    // setTheme(prevTheme => (prevTheme === 'dark' ? 'dark' : 'light'));
   };
 
   return (

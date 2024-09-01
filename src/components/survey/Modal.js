@@ -9,7 +9,7 @@ const Modal = ({ isOpen, onClose, onStartSurvey }) => {
             <div className="bg-white mr-safe-offset-1 ml-safe-offset-1 dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-md w-full relative z-10">
                 <h2 className="text-xl font-semibold text-center mb-4 dark:text-white">Iniciar Nova Pesquisa</h2>
 
-                <p className='text-xs font-sans font-extralight text-gray-700 dark:text-gray-300 mb-6 text-justify '>
+                <p className='text-xs font-sans font-light text-gray-700 dark:text-gray-300 mb-6 text-justify '>
                     <span className='font-medium'>Bom dia/tarde, eu sou ........</span> (mostrar
                     crachá), da equipe do
                     <span className='font-semibold'> Instituto de Pesquisa e Opinião.</span> Estamos realizando
