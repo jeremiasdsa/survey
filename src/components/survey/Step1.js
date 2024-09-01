@@ -1,8 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Modal from "./Modal";
 import InputComboBox from './InputComboBox'; // Certifique-se de que o caminho está correto
 
 const Step1 = ({ formData, setFormData, isError }) => {
+    useEffect(() => {
+        // Scroll to top on component mount
+        window.scrollTo(0, 0);
+    }, []);
 
     const handleChange = (id, value) => {
         setFormData({

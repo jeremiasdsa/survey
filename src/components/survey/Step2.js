@@ -1,5 +1,6 @@
 import React from 'react';
 import { mayorOptions } from './data';
+import {useEffect} from "react";
 
 function toTitleCase(str) {
     return str
@@ -10,6 +11,11 @@ function toTitleCase(str) {
 }
 
 const Step2 = ({ mayorChoice, setMayorChoice }) => {
+    useEffect(() => {
+        // Scroll to top on component mount
+        window.scrollTo(0, 0);
+    }, []);
+
     const handleSelect = (nome) => {
         setMayorChoice(nome);
     };

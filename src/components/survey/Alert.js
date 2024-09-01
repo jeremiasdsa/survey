@@ -6,7 +6,7 @@ const Alert = ({ message, type }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setVisible(false);
-        }, 300000); // Disappear after 3 seconds
+        }, 13000); // Disappear after 3 seconds
 
         return () => clearTimeout(timer); // Cleanup the timer
     }, []);

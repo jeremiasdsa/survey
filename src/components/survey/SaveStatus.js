@@ -5,6 +5,11 @@ const SaveStatus = ({ onNewSurvey }) => {
     const [isSuccess, setIsSuccess] = useState(false);
 
     useEffect(() => {
+        // Scroll to top on component mount
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         // Simula o loading de 3 segundos
         const timer = setTimeout(() => {
             setIsLoading(false);

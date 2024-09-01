@@ -1,11 +1,40 @@
-import React from 'react';
+import React, {useDebugValue} from 'react';
+import { openDatabase } from "../storage";
 
 const links = [
     { label: 'Home', href: '/home' },
     { label: 'Recipes', href: '/recipes' },
 ]
 
+const countStoredData = async () => {
+    try {
+        const db = await openDatabase();
+        const transaction = db.transaction("dataStore", "readonly");
+        const store = transaction.objectStore("dataStore");
+        const countRequest = store.count();
+
+        return new Promise((resolve, reject) => {
+            countRequest.onsuccess = function(event) {
+                resolve(event.target.result);
+            };
+            countRequest.onerror = function(event) {
+                reject(event.target.errorCode);
+            };
+        });
+    } catch (err) {
+        console.error('[countStoredData]', err);
+        return 0;
+    }
+};
+
+
+
 const HeaderBar = ({ toggleTheme }) => {
+    const updateSurveyCount = async () => {
+        const count = await countStoredData();
+        document.getElementById('survey-count').innerText = `${count}`;
+    };
+
     return (
         <div className='fixed top-0 left-0 z-20 w-full bg-zinc-900 pt-safe'>
             <header className='border-b bg-zinc-100 px-safe dark:border-zinc-700 dark:bg-zinc-800'>
@@ -14,10 +43,19 @@ const HeaderBar = ({ toggleTheme }) => {
                         <h1 className='font-medium text-zinc-900 dark:text-zinc-50'>Pesquisa Opinião</h1>
                     </a>
 
-                    <nav className='flex items-center space-x-6'>
-                        <div className=' sm:block lg:flex lg:items-center lg:justify-between'>
-                            <h1 className='font-medium text-zinc-900 dark:text-zinc-50'>1</h1>
-                        </div>
+                    <nav className='flex items-center space-x-0'>
+                        {/*<div className=' sm:block lg:flex lg:items-center lg:justify-between'>*/}
+                        {/*    <h1 className='font-medium text-zinc-900 dark:text-zinc-50'*/}
+                        {/*    id='survey-count'>*/}
+                        {/*    </h1>*/}
+                        {/*</div>*/}
+                        <button
+                            onClick={updateSurveyCount}
+                            className="inline-flex items-center px-5 py-2.5 text-xs font-mono text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            id='survey-count'
+                        >
+                        </button>
+
                         {/*<div className='hidden sm:block'>*/}
                         {/*    <div className='flex items-center space-x-6'>*/}
                         {/*        {links.map(({label, href}) => (*/}

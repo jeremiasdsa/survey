@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import {useState, useEffect } from 'react';
 import { councilorOptions } from './data';
-import { partidoCores } from './data';
 
 // Função para converter o texto para Title Case
 function toTitleCase(str) {
@@ -12,6 +11,11 @@ function toTitleCase(str) {
 }
 
 const Step3 = ({ councilorChoice, setCouncilorChoice, onPrevious, onNext }) => {
+    useEffect(() => {
+        // Scroll to top on component mount
+        window.scrollTo(0, 0);
+    }, []);
+
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSelect = (nome) => {
@@ -25,7 +29,7 @@ const Step3 = ({ councilorChoice, setCouncilorChoice, onPrevious, onNext }) => {
     );
 
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen pb-20">
 
             <p className="text-lg font-sans font-light text-gray-700 dark:text-gray-300 mb-6 ">
                 Considerando esses candidatos para Vereador, <span className='font-medium'>em quem você votaria?</span></p>
