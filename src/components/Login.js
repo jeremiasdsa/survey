@@ -61,9 +61,9 @@ const Login = ({ onLogin, theme }) => {
     }, []);
 
     return (
-        <div className="flex justify-center  items-center min-h-screen">
+        <div className="flex justify-center  items-center min-h-screen ">
             <form
-                className="shadow-lg rounded-lg p-8 max-w-xs w-full"
+                className="shadow-lg rounded-lg p-8 max-w-xs w-full bg-white dark:bg-gray-800"
                 onSubmit={handleSubmit}
             >
                 <input

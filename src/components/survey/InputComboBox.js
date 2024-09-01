@@ -1,10 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const InputComboBox = ({ value, onChange, placeholder }) => {
     const [inputValue, setInputValue] = useState(value);
     const [isDropdownVisible, setDropdownVisible] = useState(false);
 
     const neighborhoods = [
+        "Zona Rural",
         "Centro",
         "Freitas",
         "São Judas",

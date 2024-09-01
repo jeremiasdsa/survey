@@ -83,8 +83,8 @@ const Step3 = ({ councilorChoice, setCouncilorChoice, onPrevious, onNext }) => {
                             <div
                                 className={`text-center items-center text-xs font-sans font-semibold mb-1 ${
                                     councilorChoice === candidate.nome
-                                        ? 'text-green-700'
-                                        : 'text-gray-700 dark:text-gray-300'
+                                        ? 'text-green-500'
+                                        : 'text-gray-900 dark:text-gray-300'
                                 }`}
                             >
                                 {toTitleCase(candidate.nome)}

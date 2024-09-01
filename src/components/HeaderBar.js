@@ -1,10 +1,5 @@
-import React, {useDebugValue} from 'react';
-import { openDatabase } from "../storage";
-
-const links = [
-    { label: 'Home', href: '/home' },
-    { label: 'Recipes', href: '/recipes' },
-]
+import React from 'react';
+import {openDatabase} from "../storage";
 
 const countStoredData = async () => {
     try {
@@ -14,10 +9,10 @@ const countStoredData = async () => {
         const countRequest = store.count();
 
         return new Promise((resolve, reject) => {
-            countRequest.onsuccess = function(event) {
+            countRequest.onsuccess = function (event) {
                 resolve(event.target.result);
             };
-            countRequest.onerror = function(event) {
+            countRequest.onerror = function (event) {
                 reject(event.target.errorCode);
             };
         });
@@ -28,8 +23,7 @@ const countStoredData = async () => {
 };
 
 
-
-const HeaderBar = ({ toggleTheme }) => {
+const HeaderBar = ({toggleTheme}) => {
     const updateSurveyCount = async () => {
         const count = await countStoredData();
         document.getElementById('survey-count').innerText = `${count}`;
@@ -44,11 +38,6 @@ const HeaderBar = ({ toggleTheme }) => {
                     </a>
 
                     <nav className='flex items-center space-x-0'>
-                        {/*<div className=' sm:block lg:flex lg:items-center lg:justify-between'>*/}
-                        {/*    <h1 className='font-medium text-zinc-900 dark:text-zinc-50'*/}
-                        {/*    id='survey-count'>*/}
-                        {/*    </h1>*/}
-                        {/*</div>*/}
                         <button
                             onClick={updateSurveyCount}
                             className="inline-flex items-center px-5 py-2.5 text-xs font-mono text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -56,30 +45,6 @@ const HeaderBar = ({ toggleTheme }) => {
                         >
                         </button>
 
-                        {/*<div className='hidden sm:block'>*/}
-                        {/*    <div className='flex items-center space-x-6'>*/}
-                        {/*        {links.map(({label, href}) => (*/}
-                        {/*            <a*/}
-                        {/*                key={label}*/}
-                        {/*                href={href}*/}
-                        {/*                className={`text-sm ${*/}
-                        {/*                    window.location.pathname === href*/}
-                        {/*                        ? 'text-indigo-500 dark:text-indigo-400'*/}
-                        {/*                        : 'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50'*/}
-                        {/*                }`}*/}
-                        {/*            >*/}
-                        {/*                {label}*/}
-                        {/*            </a>*/}
-                        {/*        ))}*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-
-                        {/*<button*/}
-                        {/*    title='Pesquisa'*/}
-                        {/*    className='h-10 w-10 rounded-full bg-zinc-200 bg-cover bg-center shadow-inner dark:bg-zinc-800'*/}
-                        {/*    style={{backgroundImage: 'url(/logo.svg)',}}*/}
-                        {/*    onClick={toggleTheme}*/}
-                        {/*/>*/}
                         <button
                             id="theme-toggle"
                             type="button"
@@ -113,6 +78,27 @@ const HeaderBar = ({ toggleTheme }) => {
                             </svg>
                         </button>
 
+                        <a href='/'> {/*FAZ O LOGOUT DO APP chamando o /*/}
+                            <button
+                                id="theme-toggle"
+                                type="button"
+                                className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
+                            >
+                                {/* Light Mode Icon */}
+                                <svg
+                                    id="theme-toggle-dart-icon"
+                                    className="w-5 h-5 mb-1 text-gray-600 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+                                    // className="hidden w-5 h-5"
+                                    fill="currentColor"
+                                    viewBox="0 0 23 23"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M16 9v-4l8 7-8 7v-4h-8v-6h8zm-2 10v-.083c-1.178.685-2.542 1.083-4 1.083-4.411 0-8-3.589-8-8s3.589-8 8-8c1.458 0 2.822.398 4 1.083v-2.245c-1.226-.536-2.577-.838-4-.838-5.522 0-10 4.477-10 10s4.478 10 10 10c1.423 0 2.774-.302 4-.838v-2.162z"
+                                    ></path>
+                                </svg>
+                            </button>
+                        </a>
 
                     </nav>
                 </div>

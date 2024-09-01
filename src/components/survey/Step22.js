@@ -26,7 +26,7 @@ const Step22 = ({ aVoidMayorChoice, setAvoidMayorChoice }) => {
                 <p className="text-lg font-sans font-light text-gray-700 dark:text-gray-300 mb-6 ">
                     Entre esses candidatos, em quem você<span className='font-medium'> NAO </span>votaria?<span className='font-medium'> Quem NAO merece o seu voto?</span></p>
             <div className="grid grid-cols-2 gap-4">
-                {mayorOptions.toReversed().map((candidate, index) => (
+                {mayorOptions.slice().reverse().map((candidate, index) => (
                     <div
                         key={index}
                         className={`relative flex flex-col items-center w-28 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg ${
@@ -46,16 +46,6 @@ const Step22 = ({ aVoidMayorChoice, setAvoidMayorChoice }) => {
                         <div className="text-xs font-sans font-medium text-center text-gray-700 dark:text-gray-300">
                             {toTitleCase(candidate.nome)}
                         </div>
-                        {/*{candidate.numero && (*/}
-
-                        {/*    <div*/}
-                        {/*        className="absolute bottom-14 right-5 bg-red-500 text-white rounded-full px-2 py-1"*/}
-                        {/*        style={{ backgroundColor: candidate.cor }}*/}
-
-                        {/*    >*/}
-                        {/*        {candidate.numero}*/}
-                        {/*    </div>*/}
-                        {/*)}*/}
                     </div>
                 ))}
             </div>

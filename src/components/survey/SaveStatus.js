@@ -22,7 +22,7 @@ const SaveStatus = ({ onNewSurvey }) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center">
             {isLoading && (
-                <div className="text-lg text-gray-800">
+                <div className="text-lg font-semibold text-gray-700 dark:text-gray-300">
                     Salvando...
                     {/* Adiciona um spinner */}
                     <div className="loader mt-4 border-t-4 border-blue-500 rounded-full w-16 h-16 animate-spin"></div>

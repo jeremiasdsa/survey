@@ -88,7 +88,7 @@ const LocationQuestion = ({ formData, handleChange, isError }) => (
         <div className="mt-2">
             <input
                 type="text"
-                placeholder="Rua ou outra Informação"
+                placeholder="Rua ou Nome da Zona Rural"
                 className="w-full p-3 text-sl border rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 value={formData.rua || ''}
                 onChange={(e) => handleChange('rua', e.target.value)}
