@@ -26,7 +26,10 @@ const Step3 = ({ councilorChoice, setCouncilorChoice, onPrevious, onNext }) => {
 
     return (
         <div className="min-h-screen">
-            <h4 className="text-lg font-semibold mb-4 text-center">Selecione o candidato para Vereador.</h4>
+
+            <p className="text-lg font-sans font-light text-gray-700 dark:text-gray-300 mb-6 ">
+                Considerando esses candidatos para Vereador, <span className='font-medium'>em quem você votaria?</span></p>
+
             <form className="max-w-md mx-auto pb-3">
                 <div className="relative">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
