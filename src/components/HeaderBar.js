@@ -48,9 +48,7 @@ const HeaderBar = ({toggleTheme}) => {
         <div className='fixed top-0 left-0 z-20 w-full bg-zinc-900 pt-safe'>
             <header className='border-b bg-zinc-100 px-safe dark:border-zinc-700 dark:bg-zinc-800'>
                 <div className='mx-auto flex h-14 max-w-screen-md items-center justify-between px-6'>
-                    <a href='/'>
-                        <h1 className='font-medium text-zinc-900 dark:text-zinc-50'>Pesquisa Opinião</h1>
-                    </a>
+                    <h1 className='font-medium text-zinc-900 dark:text-zinc-50'>Pesquisa Opinião</h1>
 
                     <nav className='flex items-center space-x-0'>
                         {/*Este botao exibe um contador no Header*/}
