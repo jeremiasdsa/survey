@@ -18,7 +18,7 @@ const partidoCores = {
     PP: "#0000FF",
     UNIÃO: "#0a60b3",
     Branco: "#FFFFFF",
-    Nulo: "#808080"
+    Nulo: "#737373"
 };
 
 // Lista de candidatos a vereador
@@ -84,7 +84,7 @@ const councilorOptions = [
     { nome: "WALDILEA", partido: "REDE", numero: 18100, image: `${process.env.PUBLIC_URL}/avatar_profile.png` },
     { nome: "ZÉ PEREIRA", partido: "UNIÃO", numero: 44000, image: `${process.env.PUBLIC_URL}/avatar_profile.png` },
     { nome: "Branco", partido: "", numero: "", image: `${process.env.PUBLIC_URL}/branco.png` },
-    { nome: "Nulo", partido: "", numero: "", image: `${process.env.PUBLIC_URL}/branco.png` },
+    { nome: "Não Sei", partido: "", numero: "", image: `${process.env.PUBLIC_URL}/nao_sei.jpg` },
 ];
 
 // Lista de candidatos a prefeito
@@ -109,7 +109,7 @@ const mayorOptions = [
 
         partido: "",
         numero: "",
-        imagem: `${process.env.PUBLIC_URL}/branco.png`,
+        imagem: `${process.env.PUBLIC_URL}/nao_sei.jpg`,
         cor: "#ffffff"  // isaac_coelhinho para opção isaac_coelhinho
     },
     {
