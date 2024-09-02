@@ -47,7 +47,7 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData }) => {
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
                 <div
                     className="bg-white mr-safe-offset-1 ml-safe-offset-1 dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-md w-full relative z-10">
-                    <h2 className="text-xl font-semibold text-center mb-4 dark:text-white">Estatisticas do Sistema</h2>
+                    <h2 className="text-xl font-semibold text-center mb-4 dark:text-white">Estatísticas do Sistema</h2>
 
                     {message ? (
                         <div className="text-center">
@@ -79,21 +79,24 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData }) => {
                                         Pesquisas Realizadas: {surveyCount}</p>
                                     <p className='text-sm font-sans font-medium text-gray-700 dark:text-gray-300 mb-6 '>Quantidade
                                         de Pesquisas por Bairro: {/* Add logic for counting by neighborhood */}</p>
+
+                                    <div className="flex justify-between">
+                                        <button
+                                            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                                            onClick={handleClose}>
+                                            Sair
+                                        </button>
+                                        <button
+                                            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                                            onClick={sendDataToCloud}
+                                            disabled={sending}>
+                                            Enviar Dados
+                                        </button>
+                                    </div>
+
                                 </div>
+
                             )}
-                            <div className="flex justify-between">
-                                <button
-                                    className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                                    onClick={handleClose}>
-                                    Sair
-                                </button>
-                                <button
-                                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                                    onClick={sendDataToCloud}
-                                    disabled={sending}>
-                                    Enviar Dados
-                                </button>
-                            </div>
                         </div>
                     )}
                 </div>

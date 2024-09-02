@@ -24,6 +24,13 @@ const updateDataLocally = async (data, synced) => {
     }
 }
 
+function generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
 const SurveyForm = ({ researcherName, theme }) => {
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({});
@@ -70,7 +77,8 @@ const SurveyForm = ({ researcherName, theme }) => {
     const handleConfirm = async () => {
         try {
             const newSurvey = {
-                id: crypto.randomUUID(),
+                // id: crypto.randomUUID(),
+                id: generateUUID(),
                 researcher: researcherName,
                 ...formData,
                 timestamp: Date.now(),
