@@ -5,6 +5,7 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData }) => {
     const [message, setMessage] = useState('');
     const [sending, setSending] = useState(false);
 
+
     useEffect(() => {
         if (isOpen) {
             // Reset the modal state when it's opened
@@ -62,12 +63,15 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData }) => {
                             )}
                         </div>
                     ) : (
-                        <>
+                        <div className="">
                             {sending ? (
-                                <div
-                                    className="text-lg items-center justify-center font-semibold text-gray-700 dark:text-gray-300">Enviando...
+                                <div className=" inset-0 flex items-center justify-center">
+                                <div className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+                                    Salvando...
+                                    {/* Adiciona um spinner */}
                                     <div
-                                        className="loader mt-4 items-center border-t-4 border-blue-500 rounded-full w-10 h-10 animate-spin"></div>
+                                        className="loader mt-4 border-t-4 border-blue-500 rounded-full w-16 h-16 animate-spin"></div>
+                                </div>
                                 </div>
                             ) : (
                                 <div className="mb-6">
@@ -90,7 +94,7 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData }) => {
                                     Enviar Dados
                                 </button>
                             </div>
-                        </>
+                        </div>
                     )}
                 </div>
             </div>

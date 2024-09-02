@@ -4,8 +4,8 @@ import { fireDb } from '../firebase';
 import { allowedUsers } from "../data";
 
 const Login = ({ onLogin, theme }) => {
-    const [name, setName] = useState('root');
-    const [pin, setPin] = useState('P@ssw0rd');
+    const [name, setName] = useState('');
+    const [pin, setPin] = useState('');
     const [error, setError] = useState('');
 
     const nameInputRef = useRef(null);
