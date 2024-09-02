@@ -332,3 +332,6 @@ junit.xml
 
 # local deployment related
 build
+
+# Sentry Config File
+.sentryclirc
