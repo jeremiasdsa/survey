@@ -1,5 +1,5 @@
 import React from 'react';
-import { mayorOptions } from './data';
+import { mayorOptions } from '../../data';
 import {useEffect} from "react";
 
 function toTitleCase(str) {
