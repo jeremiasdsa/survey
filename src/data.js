@@ -1,12 +1,12 @@
 const allowedUsers = {
     root: {
-        pass: 'P@ssw0rd'
+        pass: 'b03ddf3ca2e714a6548e7495e2a03f5e824eaac9837cd7f159c67b90fb4b7342'
     },
     guilherme: {
-        pass: "1234"
+        pass: '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4'
     },
     lucas: {
-        pass: "1234"
+        pass: '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4'
     }
 
 };

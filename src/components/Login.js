@@ -1,7 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { doc, getDoc } from "firebase/firestore";
 import { fireDb } from '../firebase';
 import { allowedUsers } from "../data";
+
+const hash = async (str) => {
+    const utf8 = new TextEncoder().encode(str);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', utf8);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray
+        .map((bytes) => bytes.toString(16).padStart(2, '0'))
+        .join('');
+}
 
 const Login = ({ onLogin, theme }) => {
     const [name, setName] = useState('');
@@ -24,7 +33,7 @@ const Login = ({ onLogin, theme }) => {
         }
 
         try {
-            if (allowedUsers[name] && allowedUsers[name].pass === pin) {
+            if (allowedUsers[name] && allowedUsers[name].pass === await hash(pin)) {
                 setError('');
                 onLogin(name, pin);
             } else {
@@ -34,12 +43,13 @@ const Login = ({ onLogin, theme }) => {
                     return;
                 }
             }
+
+            setError('');
+            onLogin(name, pin);
         } catch (err) {
+            setError('Usuário ou senha inválidos');
             console.error(err);
         }
-
-        setError('');
-        onLogin(name, pin);
     };
 
     useEffect(() => {
