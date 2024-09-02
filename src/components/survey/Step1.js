@@ -68,7 +68,7 @@ const LocationQuestion = ({ formData, handleChange, isError }) => (
         <div className="flex items-end">
             <h4 className="text-lg font-sans font-light text-gray-700 dark:text-gray-300 mb-0 text-justify ">Bairro</h4>
             {isError && !formData.bairro && (
-                <h className="text-lg text-red-500 font-bold">*</h>
+                <h1 className="text-lg text-red-500 font-bold">*</h1>
             )}
         </div>
 
@@ -111,7 +111,7 @@ const GenderQuestion = ({formData, handleChange, isError}) => (
         <div className="flex items-end">
             <h4 className="text-lg font-sans font-light text-gray-700 dark:text-gray-300 mb-0 text-justify ">Gênero</h4>
             {isError && !formData.genero && (
-                <h className="text-lg text-red-500 font-bold">*</h>
+                <h1 className="text-lg text-red-500 font-bold">*</h1>
             )}
         </div>
 
@@ -206,7 +206,7 @@ const AgeQuestion = ({formData, handleChange, isError}) => (
                 <h4 className="text-lg font-sans font-light text-gray-700 dark:text-gray-300 mb-0 text-justify ">Faixa
                     Etária</h4>
                 {isError && !formData.faixaEtaria && (
-                    <h className="text-lg text-red-500 font-bold">*</h>
+                    <h1 className="text-lg text-red-500 font-bold">*</h1>
                 )}
             </div>
 
@@ -252,7 +252,7 @@ const EducationQuestion = ({formData, handleChange, isError}) => (
         <div className="flex items-end">
             <h4 className="text-lg font-sans font-light text-gray-700 dark:text-gray-300 mb-0 text-justify ">Escolaridade</h4>
             {isError && !formData.escolaridade && (
-                <h className="text-lg text-red-500 font-bold">*</h>
+                <h1 className="text-lg text-red-500 font-bold">*</h1>
             )}
         </div>
 
@@ -296,7 +296,7 @@ const IncomeQuestion = ({formData, handleChange, isError}) => (
             <h4 className="text-lg font-sans font-light text-gray-700 dark:text-gray-300 mb-0 text-justify ">Renda
                 Familiar</h4>
             {isError && !formData.rendaFamiliar && (
-                <h className="text-lg text-red-500 font-bold">*</h>
+                <h1 className="text-lg text-red-500 font-bold">*</h1>
             )}
         </div>
 

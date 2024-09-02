@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Login from './components/Login';
 import SurveyForm from './components/survey/SurveyForm';
-import SyncStatus from './components/SyncStatus';
 import { database } from "./firebase";
 import { openDatabase } from "./storage";
 import { ref, push } from 'firebase/database';
 import HeaderBar from './components/HeaderBar';
 import './index.css';
-import SaveStatus from "./components/survey/SaveStatus"; // Importa o Tailwind CSS
 
 // Função para sincronizar dados do IndexedDB com o Firebase
 function syncDataWithFirebase() {
@@ -29,6 +27,7 @@ function syncDataWithFirebase() {
       // const clearTransaction = db.transaction("dataStore", "readwrite");
       // const clearStore = clearTransaction.objectStore("dataStore");
       // clearStore.clear();
+      console.log("NAO ESTOU LIMPANDO -- Realtime está poluindo mais por causa disso!??")
       console.log("Dados sincronizados e IndexedDB limpo.");
     };
 
