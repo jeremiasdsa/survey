@@ -1,5 +1,5 @@
 import {useState, useEffect } from 'react';
-import { councilorOptions } from './data';
+import { councilorOptions } from '../../data';
 
 // Função para converter o texto para Title Case
 function toTitleCase(str) {
