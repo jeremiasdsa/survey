@@ -1,7 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { doc, getDoc } from "firebase/firestore";
 import { fireDb } from '../firebase';
 import { allowedUsers } from "../data";
+import {openDatabase} from "../storage";
+
+const hash = async (str) => {
+    const utf8 = new TextEncoder().encode(str);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', utf8);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray
+        .map((bytes) => bytes.toString(16).padStart(2, '0'))
+        .join('');
+}
+
+const handleLogin = (userData, onLogin) => {
+    openDatabase()
+        .then(db => {
+            let tx = db.transaction('storage', 'readwrite');
+            let store = tx.objectStore('storage');
+
+            store.put({id: 'user', ...userData});
+        }).catch(err => {
+        console.error('[handleLogin]', err);
+    });
+    //TODO spinner?
+    onLogin(userData.username);
+}
 
 const Login = ({ onLogin, theme }) => {
     const [name, setName] = useState('');
@@ -23,23 +47,25 @@ const Login = ({ onLogin, theme }) => {
             return;
         }
 
+        let user;
         try {
-            if (allowedUsers[name] && allowedUsers[name].pass === pin) {
-                setError('');
-                onLogin(name, pin);
+            if (allowedUsers[name] && allowedUsers[name].pass === await hash(pin)) {
+                user = allowedUsers[name]
             } else {
-                const user = await getDoc(doc(fireDb, "users", name));
-                if (!user.exists() || user.data()?.password !== pin) {
+                const response = await getDoc(doc(fireDb, "users", name));
+                if (!response.exists() || response.data()?.password !== pin) {
                     setError('Usuário ou senha inválidos');
                     return;
                 }
+                user = response.data();
             }
+
+            setError('');
+            handleLogin(user, onLogin);
         } catch (err) {
+            setError('Usuário ou senha inválidos');
             console.error(err);
         }
-
-        setError('');
-        onLogin(name, pin);
     };
 
     useEffect(() => {
@@ -61,7 +87,7 @@ const Login = ({ onLogin, theme }) => {
     }, []);
 
     return (
-        <div className="flex justify-center  items-center min-h-screen ">
+        <div className="flex justify-center items-center min-h-screen">
             <form
                 className="shadow-lg rounded-lg p-8 max-w-xs w-full bg-white dark:bg-gray-800"
                 onSubmit={handleSubmit}

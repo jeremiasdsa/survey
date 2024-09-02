@@ -31,7 +31,7 @@ function generateUUID() {
     });
 }
 
-const SurveyForm = ({ researcherName, theme }) => {
+const SurveyForm = ({ researcherName }) => {
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({});
     const [feedbackMessage, setFeedbackMessage] = useState('');

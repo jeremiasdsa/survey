@@ -8,6 +8,10 @@ const openDatabase = () => {
                 db.createObjectStore("dataStore", { keyPath: 'id' });
                 console.log("Object store 'dataStore' criada com sucesso.");
             }
+            if (!db.objectStoreNames.contains("storage")) {
+                db.createObjectStore("storage", { keyPath: 'id' });
+                console.log("Object store 'storage' criada com sucesso.");
+            }
         };
 
         request.onsuccess = function(event) {

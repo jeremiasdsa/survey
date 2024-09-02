@@ -44,6 +44,21 @@ const HeaderBar = ({toggleTheme}) => {
         // Implement the logic to send data to the cloud
     };
 
+    const handleLogout = () => {
+        console.log('handle logout');
+        openDatabase()
+            .then(db => {
+                let tx = db.transaction('storage', 'readwrite');
+                let store = tx.objectStore('storage');
+
+                store.delete('user');
+            }).catch(err => {
+                console.error('[handleLogout]', err);
+            });
+        //TODO spinner?
+        window.location.href = '/';
+    };
+
     return (
         <div className='fixed top-0 left-0 z-20 w-full bg-zinc-900 pt-safe'>
             <header className='border-b bg-zinc-100 px-safe dark:border-zinc-700 dark:bg-zinc-800'>
@@ -95,25 +110,24 @@ const HeaderBar = ({toggleTheme}) => {
                             </svg>
                         </button>
 
-                        <a href='/'>
-                            <button
-                                id="theme-toggle"
-                                type="button"
-                                className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
+                        <button
+                            id="theme-toggle"
+                            type="button"
+                            className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
+                            onClick={handleLogout}
+                        >
+                            <svg
+                                id="theme-toggle-dart-icon"
+                                className="w-5 h-5 mb-1 text-gray-600 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+                                fill="currentColor"
+                                viewBox="0 0 23 23"
+                                xmlns="http://www.w3.org/2000/svg"
                             >
-                                <svg
-                                    id="theme-toggle-dart-icon"
-                                    className="w-5 h-5 mb-1 text-gray-600 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-                                    fill="currentColor"
-                                    viewBox="0 0 23 23"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M16 9v-4l8 7-8 7v-4h-8v-6h8zm-2 10v-.083c-1.178.685-2.542 1.083-4 1.083-4.411 0-8-3.589-8-8s3.589-8 8-8c1.458 0 2.822.398 4 1.083v-2.245c-1.226-.536-2.577-.838-4-.838-5.522 0-10 4.477-10 10s4.478 10 10 10c1.423 0 2.774-.302 4-.838v-2.162z"
-                                    ></path>
-                                </svg>
-                            </button>
-                        </a>
+                                <path
+                                    d="M16 9v-4l8 7-8 7v-4h-8v-6h8zm-2 10v-.083c-1.178.685-2.542 1.083-4 1.083-4.411 0-8-3.589-8-8s3.589-8 8-8c1.458 0 2.822.398 4 1.083v-2.245c-1.226-.536-2.577-.838-4-.838-5.522 0-10 4.477-10 10s4.478 10 10 10c1.423 0 2.774-.302 4-.838v-2.162z"
+                                ></path>
+                            </svg>
+                        </button>
                     </nav>
                 </div>
             </header>
