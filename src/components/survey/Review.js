@@ -60,49 +60,7 @@ const Review = ({ formData, onConfirm, onEdit }) => {
                     </p>
                 </div>
             </div>
-
-            {/*<div className="mt-8 text-center">*/}
-            {/*    <button*/}
-            {/*        onClick={onEdit}*/}
-            {/*        className="px-4 py-2 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 mr-2"*/}
-            {/*    >*/}
-            {/*        Editar*/}
-            {/*    </button>*/}
-            {/*    <button*/}
-            {/*        onClick={onConfirm}*/}
-            {/*        className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"*/}
-            {/*    >*/}
-            {/*        Confirmar*/}
-            {/*    </button>*/}
-            {/*</div>*/}
         </div>
-        // <div className="review space-y-4">
-        //
-        //     <h4 className="text-lg font-sans font-semibold text-gray-700 dark:text-gray-300 mb-0 text-justify">
-        //         Revisão das Respostas</h4>
-        //
-        //     <div>
-        //         <strong>Bairro:</strong> {formData.bairro}
-        //     </div>
-        //     <div>
-        //         <strong>Rua:</strong> {formData.rua}
-        //     </div>
-        //     <div>
-        //         <strong>Gênero:</strong> {toTitleCase(formData.genero)}
-        //     </div>
-        //     <div>
-        //         <strong>Faixa Etária:</strong> {toTitleCase(formData.faixaEtaria)}
-        //     </div>
-        //     <div>
-        //         <strong>Escolaridade:</strong> {toTitleCase(formData.escolaridade)}
-        //     </div>
-        //     <div>
-        //         <strong>Candidato a Prefeito:</strong> {toTitleCase(formData.mayorChoice)}
-        //     </div>
-        //     <div>
-        //         <strong>Candidato a Vereador:</strong> {toTitleCase(formData.councilorChoice)}
-        //     </div>
-        // </div>
     );
 };
 

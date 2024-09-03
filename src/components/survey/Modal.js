@@ -4,12 +4,15 @@ const Modal = ({ isOpen, onClose, onStartSurvey }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+            {/* Overlay */}
             <div className="fixed inset-0 bg-black opacity-50"></div>
-            <div className="bg-white mr-safe-offset-1 ml-safe-offset-1 dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-md w-full relative z-10">
+
+            {/* Modal Content */}
+            <div className="relative z-10 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-md w-full">
                 <h2 className="text-xl font-semibold text-center mb-4 dark:text-white">Iniciar Nova Pesquisa</h2>
 
-                <p className='text-xs font-sans font-light text-gray-700 dark:text-gray-300 mb-6 text-justify '>
+                <p className='text-xs font-sans font-light text-gray-700 dark:text-gray-300 mb-6 text-justify'>
                     <span className='font-medium'>Bom dia/tarde, eu sou ........</span> (mostrar
                     crachá), da equipe do
                     <span className='font-semibold'> Instituto de Pesquisa e Opinião.</span> Estamos realizando
@@ -19,6 +22,7 @@ const Modal = ({ isOpen, onClose, onStartSurvey }) => {
                     entrevistados, com uma análise das
                     respostas agregadas. Você pode participar? Muito obrigado(a).
                 </p>
+
                 <div className="text-center">
                     <button
                         onClick={onStartSurvey}
@@ -27,6 +31,7 @@ const Modal = ({ isOpen, onClose, onStartSurvey }) => {
                         Iniciar Pesquisa
                     </button>
                 </div>
+
                 <button
                     onClick={onClose}
                     className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-500"

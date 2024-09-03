@@ -112,7 +112,11 @@ const Login = ({ onLogin, theme }) => {
                 />
                 {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
                 <button
-                    className="w-full bg-blue-500 text-white py-3 rounded-md text-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    className={`w-full py-3 rounded-md text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-opacity-50 ${
+                        name && pin
+                            ? 'bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-500'
+                            : 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                    }`}
                     type="submit"
                     disabled={!name || !pin}
                 >

@@ -51,8 +51,9 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData }) => {
 
                     {message ? (
                         <div className="text-center">
-                            <p className="'text-sm font-sans font-medium text-gray-700 dark:text-gray-300 mb-6 '>">
-                                {message}</p>
+                            <p className="text-sm font-sans font-medium text-gray-700 dark:text-gray-300 mb-6">
+                                {message}
+                            </p>
                             {!sending && (
                                 <button
                                     className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
@@ -63,39 +64,42 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData }) => {
                             )}
                         </div>
                     ) : (
-                        <div className="">
+                        <div>
                             {sending ? (
-                                <div className=" inset-0 flex items-center justify-center">
-                                <div className="text-lg font-semibold text-gray-700 dark:text-gray-300">
-                                    Salvando...
-                                    {/* Adiciona um spinner */}
-                                    <div
-                                        className="loader mt-4 border-t-4 border-blue-500 rounded-full w-16 h-16 animate-spin"></div>
-                                </div>
+                                <div className="flex items-center justify-center">
+                                    <div className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+                                        Salvando...
+                                        {/* Spinner */}
+                                        <div
+                                            className="loader mt-4 border-t-4 border-blue-500 rounded-full w-16 h-16 animate-spin"></div>
+                                    </div>
                                 </div>
                             ) : (
                                 <div className="mb-6">
-                                    <p className='text-sm font-sans font-medium text-gray-700 dark:text-gray-300 mb-6 '>
-                                        Pesquisas Realizadas: {surveyCount}</p>
-                                    <p className='text-sm font-sans font-medium text-gray-700 dark:text-gray-300 mb-6 '>Quantidade
-                                        de Pesquisas por Bairro: {/* Add logic for counting by neighborhood */}</p>
+                                    <p className="text-sm font-sans font-medium text-gray-700 dark:text-gray-300 mb-6">
+                                        Pesquisas Realizadas: {surveyCount}
+                                    </p>
+                                    <p className="text-sm font-sans font-medium text-gray-700 dark:text-gray-300 mb-6">
+                                        Quantidade de Pesquisas por
+                                        Bairro: {/* Add logic for counting by neighborhood */}
+                                    </p>
 
                                     <div className="flex justify-between">
                                         <button
                                             className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                                            onClick={handleClose}>
+                                            onClick={handleClose}
+                                        >
                                             Sair
                                         </button>
                                         <button
                                             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                                             onClick={sendDataToCloud}
-                                            disabled={sending}>
+                                            disabled={sending}
+                                        >
                                             Enviar Dados
                                         </button>
                                     </div>
-
                                 </div>
-
                             )}
                         </div>
                     )}
