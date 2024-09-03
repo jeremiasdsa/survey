@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ref, push } from 'firebase/database';
+import { ref, push, set, child, get, getDatabase } from 'firebase/database';
 import { setDoc, doc } from 'firebase/firestore';
 import { database, fireDb } from "../../firebase";
 import { openDatabase } from '../../storage';
@@ -12,17 +12,33 @@ import ActionsBar from "../ActionsBar";
 import SaveStatus from './SaveStatus'; // Importa o novo componente
 import Alert from './Alert'; // Import the new Alert component
 
-const updateDataLocally = async (data, synced) => {
+// const updateDataLocally = async (data, synced) => {
+//     try {
+//         const db = await openDatabase();
+//         const transaction = db.transaction("dataStore", "readwrite");
+//         const store = transaction.objectStore("dataStore");
+//         store.put({ ...data, synced });
+//         console.log('Dados salvos localmente no IndexedDB.');
+//     } catch (err) {
+//         console.error('[updateDataLocally]', err);
+//     }
+// }
+
+
+const updateIndexDBLocally = async (data, synced) => {
     try {
-        const db = await openDatabase();
+        const db = await openDatabase(); // Opens the IndexedDB
         const transaction = db.transaction("dataStore", "readwrite");
         const store = transaction.objectStore("dataStore");
+
+        // Update or add the new data to IndexedDB
         store.put({ ...data, synced });
-        console.log('Dados salvos localmente no IndexedDB.');
+
+        console.log(`Data with ID ${data.id} saved locally with synced status: ${synced}.`);
     } catch (err) {
-        console.error('[updateDataLocally]', err);
+        console.error('[updateDataLocally] Error saving data locally:', err);
     }
-}
+};
 
 function generateUUID() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -75,26 +91,43 @@ const SurveyForm = ({ researcherName }) => {
     };
 
     const handleConfirm = async () => {
+
+        let surveyId = generateUUID()
+        console.log(surveyId);
+
         try {
             const newSurvey = {
                 // id: crypto.randomUUID(),
-                id: generateUUID(),
+                id: surveyId,
                 researcher: researcherName,
                 ...formData,
                 timestamp: Date.now(),
             };
+            console.log(newSurvey)
 
-            // Save locally in IndexedDB
-            await updateDataLocally(newSurvey, false);
+            // Save locally first, then try to sync with Firebase
+            await updateIndexDBLocally({ ...newSurvey, id: surveyId }, false);
 
-            // Save to Firebase Realtime Database
-            push(ref(database, 'surveys'), newSurvey)
+            // // Save to Firebase Realtime Database
+            // push(ref(database, 'surveys'), newSurvey)
+            //     .then(async () => {
+            //         console.log('Dados salvos no Realtime.');
+            //         await updateDataLocally(newSurvey, true); // Update sync status
+            //     })
+            //     .catch((err) => {
+            //         console.error('realtime - error', err);
+            //     });
+
+            const nodeRef = child(ref(database), "sur/" + surveyId); // surveyId = custom ID you want to specify
+
+            // Save to Realtime using Set to create or / UPDATE an item
+            set(nodeRef, { ...newSurvey })
                 .then(async () => {
-                    console.log('Dados salvos no Realtime.');
-                    await updateDataLocally(newSurvey, true); // Update sync status
+                    console.log('Dados salvos no Realtime com SET.');
+                    await updateIndexDBLocally({ ...newSurvey, id: surveyId }, true);
                 })
                 .catch((err) => {
-                    console.error('realtime - error', err);
+                    console.error('realtime - Error Realtime com SET', err);
                 });
 
             // Save to Firestore

@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import {child, ref, set} from "firebase/database";
+import {database} from "../../firebase";
+import {openDatabase} from "../../storage";
 
 const StatisticsModal = ({ isOpen, onClose, countStoredData }) => {
     const [surveyCount, setSurveyCount] = useState(0);
@@ -21,7 +24,7 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData }) => {
             setMessage('Sem conexão com a Internet. Por favor, conecte-se e tente novamente.');
             return;
         }
-
+        sendAllDataToCloud();
         setSending(true);
         // Simulate sending data to the cloud
         setTimeout(() => {
@@ -36,6 +39,65 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData }) => {
         setSending(false);
         onClose();
     };
+
+    const sendAllDataToCloud = async () => {
+        let allSurveysID = "allSurveysID"
+
+        try {
+            const db = await openDatabase();
+            const transaction = db.transaction("dataStore", "readonly");
+            const store = transaction.objectStore("dataStore");
+
+            // Get all data from IndexedDB
+            const unsyncedData = await new Promise((resolve, reject) => {
+                const request = store.getAll();
+                request.onsuccess = (event) => {
+                    resolve(event.target.result || []);
+                };
+                request.onerror = (event) => {
+                    reject(event.target.error);
+                };
+            });
+
+            for (const item of unsyncedData) {
+                if (!item.endSurvey) {
+                    try {
+                        // Try syncing each unsynced item to Firebase
+                        const surveyId = item.id;
+                        // const newSurveyRef = ref(database, `surveys/${surveyId}`);
+                        const newSurveyRef = ref(database, `allSur/${surveyId}`);
+
+                        await set(newSurveyRef, {...item, id: surveyId});
+                        // CONVERSAR COM JORDAO .. AQUI DEVERIA SER AWAIT OU TERM O THEN?
+
+                        // Mark the item as synced in IndexedDB
+                        const updateTransaction = db.transaction("dataStore", "readwrite");
+                        const updateStore = updateTransaction.objectStore("dataStore");
+                        await updateStore.put({...item, endSurvey: true});
+
+                        console.log(`Data with ID ${surveyId} synced successfully.`);
+                    } catch (syncError) {
+                        console.error(`Error syncing data with ID ${item.id}:`, syncError);
+                    }
+                }
+            }
+        } catch (err) {
+            console.error('Error accessing IndexedDB for syncing:', err);
+        }
+
+
+        // const nodeRef = child(ref(database), "allSur/" + allSurveysID); // surveyId = custom ID you want to specify
+        //
+        // // Save to Realtime using Set to create or / UPDATE an item
+        // set(nodeRef, {...newSurvey})
+        //     .then(async () => {
+        //         console.log('Dados salvos no Realtime com SET.');
+        //         await updateIndexDBLocally({...newSurvey, id: surveyId}, true);
+        //     })
+        //     .catch((err) => {
+        //         console.error('realtime - Error Realtime com SET', err);
+        //     });
+    }
 
     if (!isOpen) return null;
 

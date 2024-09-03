@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {openDatabase} from "../storage";
-import StatisticsModal from './survey/StatisticsModal'; // Import the modal component
+import StatisticsModal from './survey/StatisticsModal';
+import {forceLoad} from "@sentry/react"; // Import the modal component
 
 
-const HeaderBar = ({toggleTheme}) => {
+const HeaderBar = ({toggleTheme, showOptions}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const countStoredData = async () => {
@@ -50,6 +51,52 @@ const HeaderBar = ({toggleTheme}) => {
         window.location.href = '/';
     };
 
+    const clearCacheData = async () => {
+        if ('caches' in window) {
+            // Open all the caches
+            const cacheNames = await caches.keys();
+
+            // Delete all caches
+            await Promise.all(cacheNames.map(cache => caches.delete(cache)));
+
+            console.log('Cache cleared!');
+        } else {
+            alert('Cache API not supported in this browser.');
+        }
+
+        // Clear Local Storage
+        localStorage.clear();
+
+        // Clear Session Storage
+        sessionStorage.clear();
+
+        // Clear Cookies
+        document.cookie.split(";").forEach(cookie => {
+            const name = cookie.split("=")[0].trim();
+            document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        });
+
+        // Clear IndexedDB
+        const indexedDBDatabases = indexedDB.databases ? indexedDB.databases() : Promise.resolve([]);
+        indexedDBDatabases.then(dbs => {
+            dbs.forEach(db => {
+                indexedDB.deleteDatabase(db.name);
+            });
+        });
+
+        // Clear Cache Storage (Service Workers)
+        if ('caches' in window) {
+            caches.keys().then(function (names) {
+                for (let name of names) {
+                    caches.delete(name);
+                }
+            });
+        }
+
+        // Reload the page to ensure all changes take effect
+        window.location.reload();
+    }
+
     return (
         <div className='fixed top-0 left-0 z-20 w-full bg-zinc-900 pt-safe'>
             <header className='border-b bg-zinc-100 px-safe dark:border-zinc-700 dark:bg-zinc-800'>
@@ -65,6 +112,29 @@ const HeaderBar = ({toggleTheme}) => {
                         {/*>*/}
                         {/*</button>*/}
 
+                        {/*LOGOUT TRASH BUTTON*/}
+                        {showOptions && (
+                            <button
+                                id="clear-data-site"
+                                type="button"
+                                className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
+                                onClick={clearCacheData}
+                            >
+                                <svg
+                                    id="clear-data-site"
+                                    className="w-5 h-5 mb-1 text-gray-600 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+                                    fill="currentColor"
+                                    viewBox="0 0 23 23"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z"
+                                        fillRule="nonzero"/>
+                                </svg>
+                            </button>
+                        )}
+
+                        {/*STATISTIC BUTTON*/}
                         <button
                             onClick={handleOpenModal} // Open the modal on click
                             className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
@@ -80,6 +150,8 @@ const HeaderBar = ({toggleTheme}) => {
                             </svg>
                         </button>
 
+
+                        {/*THEME COLOR BUTTON*/}
                         <button
                             id="theme-toggle"
                             type="button"
@@ -101,6 +173,7 @@ const HeaderBar = ({toggleTheme}) => {
                             </svg>
                         </button>
 
+                        {/*LOGOUT BUTTON*/}
                         <button
                             id="theme-toggle"
                             type="button"
