@@ -449,6 +449,30 @@
     {
       "src": "ios/1024.png",
       "sizes": "1024x1024"
+    },
+    {
+      "src": "avatar_profile/1024.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "branco.png",
+      "sizes": "330x330"
+    },
+    {
+      "src": "claudio_regis.png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "nao_sei.png",
+      "sizes": "200x200"
+    },
+    {
+      "src": "logo.svg",
+      "sizes": "1024x1024"
+    },
+    {
+      "src": "gledes.png",
+      "sizes": "144x144"
     }
   ],
   "start_url": ".",

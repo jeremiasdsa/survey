@@ -175,6 +175,53 @@ function App() {
         });
   };
 
+
+  //  Disable Pull-to-Refresh on Android Chrome:
+  window.addEventListener('load', () => {
+    let lastTouchY = 0;
+    let preventPullToRefresh = false;
+
+    document.addEventListener('touchstart', (e) => {
+      if (e.touches.length !== 1) {
+        return;
+      }
+      lastTouchY = e.touches[0].clientY;
+      preventPullToRefresh = window.pageYOffset === 0;
+    }, {passive: false});
+
+    document.addEventListener('touchmove', (e) => {
+      const touchY = e.touches[0].clientY;
+      const touchYDelta = touchY - lastTouchY;
+
+      if (preventPullToRefresh) {
+        preventPullToRefresh = false;
+
+        if (touchYDelta > 0) {
+          e.preventDefault();
+          return;
+        }
+      }
+    }, {passive: false});
+  });
+
+  document.addEventListener('touchmove', function(event) {
+    if (event.touches.length > 1) {
+      event.preventDefault();
+    }
+  }, { passive: false });
+
+  document.addEventListener('touchstart', function(event) {
+    if (event.touches.length > 1) {
+      event.preventDefault();
+    }
+  }, { passive: false });
+
+  document.addEventListener('touchend', function(event) {
+    if (event.touches.length > 1) {
+      event.preventDefault();
+    }
+  }, { passive: false });
+
   return (
       <div className={`${theme} dark:border-zinc-600 bg-zinc-200 dark:bg-zinc-600 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400`}>
         {isLoading ? (

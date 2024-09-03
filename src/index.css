@@ -2,3 +2,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* This prevents the default pull-to-refresh behavior */
+body, html {
+    overscroll-behavior-y: none;
+}
