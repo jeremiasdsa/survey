@@ -124,7 +124,7 @@ const Login = ({ onLogin, theme }) => {
                 </button>
 
                 <div className="mt-3 text-center text-xs font-mono text-zinc-900 dark:text-zinc-50">
-                    <h1>version 1.4</h1>
+                    <h1>version 1.6</h1>
                 </div>
             </form>
         </div>

@@ -30,7 +30,7 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData }) => {
         setTimeout(() => {
             setSending(false);
             setMessage('Dados enviados com sucesso!');
-        }, 3000); // Simulate 3 seconds delay for sending data
+        }, 4000); // Simulate 3 seconds delay for sending data
     };
 
     // Close the modal and reset state
@@ -62,6 +62,11 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData }) => {
             for (const item of unsyncedData) {
                 if (!item.endSurvey) {
                     try {
+
+                        //Criando o lastSynced
+                        let lastSynced = Date.now();
+                        item.lastSynced = lastSynced;
+
                         // Try syncing each unsynced item to Firebase
                         const surveyId = item.id;
                         // const newSurveyRef = ref(database, `surveys/${surveyId}`);
@@ -73,7 +78,7 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData }) => {
                         // Mark the item as synced in IndexedDB
                         const updateTransaction = db.transaction("dataStore", "readwrite");
                         const updateStore = updateTransaction.objectStore("dataStore");
-                        await updateStore.put({...item, endSurvey: true});
+                        await updateStore.put({...item, endSurvey: true, lastSynced: lastSynced, id: item.id });
 
                         console.log(`Data with ID ${surveyId} synced successfully.`);
                     } catch (syncError) {

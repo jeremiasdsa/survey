@@ -64,6 +64,8 @@ const syncDataWithFirebase = async () => {
         try {
           // Try syncing each unsynced item to Firebase
           const surveyId = item.id;
+          let syncedAt = Date.now();
+          item.syncedAt = syncedAt;
           // const newSurveyRef = ref(database, `surveys/${surveyId}`);
           const newSurveyRef = ref(database, `sur/${surveyId}`);
 
@@ -73,7 +75,7 @@ const syncDataWithFirebase = async () => {
           // Mark the item as synced in IndexedDB
           const updateTransaction = db.transaction("dataStore", "readwrite");
           const updateStore = updateTransaction.objectStore("dataStore");
-          await updateStore.put({ ...item, synced: true });
+          await updateStore.put({ ...item, synced: true, syncedAt: syncedAt, id: item.id });
 
           console.log(`Data with ID ${surveyId} synced successfully.`);
         } catch (syncError) {
