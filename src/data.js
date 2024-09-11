@@ -2,19 +2,38 @@ const allowedUsers = {
     root: {
         username: 'root',
         name: 'Root',
-        pass: 'b03ddf3ca2e714a6548e7495e2a03f5e824eaac9837cd7f159c67b90fb4b7342'
+        pass: '4321'
     },
-    guilherme: {
-        username: 'guilherme',
-        name: 'Guilherme',
-        pass: '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4'
+    breno: {
+        username: 'breno',
+        name: 'breno',
+        pass: '1234'
     },
-    lucas: {
-        username: 'lucas',
-        name: 'Lucas',
-        pass: '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4'
+    eutalia: {
+        username: 'eutalia',
+        name: 'eutalia',
+        pass: '1234'
+    },
+    nayara: {
+        username: 'nayara',
+        name: 'nayara',
+        pass: '1234'
+    },
+    tamires: {
+        username: 'tamires',
+        name: 'tamires',
+        pass: '1234'
+    },
+    tereza: {
+        username: 'tereza',
+        name: 'tereza',
+        pass: '1234'
+    },
+    jeremias: {
+        username: 'jeremias',
+        name: 'jeremias',
+        pass: '1234'
     }
-
 };
 const partidoCores = {
     PV: "#0a860a",
@@ -48,10 +67,10 @@ const councilorOptions = [
     { nome: "EDU GONÇALVES", partido: "PP", numero: 11456, image: `${process.env.PUBLIC_URL}/avatar_profile.png` },
     { nome: "ENEIDE CONSELHEIRA", partido: "PT", numero: 13223, image: `${process.env.PUBLIC_URL}/avatar_profile.png` },
     { nome: "FILHINHO DO CAIXÃO", partido: "UNIÃO", numero: 44888, image: `${process.env.PUBLIC_URL}/avatar_profile.png` },
-    { nome: "ISAAC COELHINHO", partido: "PP", numero: 11789, image: `${process.env.PUBLIC_URL}/isaac_coelhinho.png` },
+    { nome: "ISAAC COELHINHO", partido: "PP", numero: 11789, image: `${process.env.PUBLIC_URL}/avatar_profile.png` },
     { nome: "JAILSON PÉ DE SERROTE", partido: "UNIÃO", numero: 44111, image: `${process.env.PUBLIC_URL}/avatar_profile.png` },
     { nome: "JAILSON CELULAR", partido: "REDE", numero: 18777, image: `${process.env.PUBLIC_URL}/avatar_profile.png` },
-    { nome: "JANDUY", partido: "REDE", numero: 18000, image: `${process.env.PUBLIC_URL}/janduy_serafim.png` },
+    { nome: "JANDUY", partido: "REDE", numero: 18000, image: `${process.env.PUBLIC_URL}/avatar_profile.png` },
     { nome: "JESSYCA DE BAÚ", partido: "PSD", numero: 55345, image: `${process.env.PUBLIC_URL}/avatar_profile.png` },
     { nome: "JOÃOZINHO DO POVO", partido: "UNIÃO", numero: 44400, image: `${process.env.PUBLIC_URL}/avatar_profile.png` },
     { nome: "JOELMA FEITOSA", partido: "REDE", numero: 18666, image: `${process.env.PUBLIC_URL}/avatar_profile.png` },
@@ -127,4 +146,24 @@ const mayorOptions = [
     }
 ];
 
-export {allowedUsers, partidoCores, mayorOptions, councilorOptions};
+
+const neighborhoods = [
+    { name: "Centro", goal: 35 },
+    { name: "Lagoa do Mato", goal: 65 },
+    { name: "Baixa Verde", goal: 65 },
+    { name: "Gibão", goal: 35 },
+    { name: "Bela Vista", goal: 45 },
+    { name: "Padre Cícero", goal: 45 },
+    { name: "Freitas", goal: 35 },
+    { name: "São Judas", goal: 35 },
+    { name: "Brito Lyra", goal: 35 },
+    { name: "Alto da Colina", goal: 25 },
+    { name: "Flórida", goal: 10 },
+    { name: "Zona Rural", goal: 45 },
+    { name: "MST Osiel Pereira", goal: 3 },
+    { name: "Vila Presidio", goal: 4 },
+    { name: "Conj Mae Rainha", goal: 4 },
+    { name: "Conj Mon Fidelis", goal: 6 }
+];
+
+export {allowedUsers, partidoCores, mayorOptions, councilorOptions, neighborhoods};

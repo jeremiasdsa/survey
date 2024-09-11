@@ -233,6 +233,8 @@ function App() {
               <HeaderBar
                   toggleTheme={toggleTheme}
                   showOptions={researcherName === 'root'}
+                  showCloudStatistics={researcherName === 'jeremias' || researcherName === 'breno' || researcherName === 'coordenador'}
+                  showCloudStatistics2={researcherName === 'jeremias' || researcherName === 'breno' || researcherName === 'coordenador'}
               />
               {researcherName ? (
                   <div className="mx-auto max-w-screen-md min-h-screen pt-20 pb-14 px-safe dark:text-zinc-50 ml-5 mr-5">

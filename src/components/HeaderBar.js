@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import {openDatabase} from "../storage";
 import StatisticsModal from './survey/StatisticsModal';
+import StatisticsModal2 from './survey/StatisticsModal2';
 import {forceLoad} from "@sentry/react"; // Import the modal component
 
 
-const HeaderBar = ({toggleTheme, showOptions}) => {
+const HeaderBar = ({toggleTheme, showOptions, showCloudStatistics, showCloudStatistics2}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen2, setIsModalOpen2] = useState(false);
 
     const countStoredData = async () => {
         try {
@@ -34,6 +36,15 @@ const HeaderBar = ({toggleTheme, showOptions}) => {
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
+    };
+
+
+    const handleOpenModal2 = () => {
+        setIsModalOpen2(true);
+    };
+
+    const handleCloseModal2 = () => {
+        setIsModalOpen2(false);
     };
 
     const handleLogout = () => {
@@ -134,6 +145,26 @@ const HeaderBar = ({toggleTheme, showOptions}) => {
                             </button>
                         )}
 
+
+                        {/*STATISTIC BUTTON 2*/}
+                        {showCloudStatistics2 && (
+                        <button
+                            onClick={handleOpenModal2} // Open the modal on click
+                            className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
+                        >
+                            <svg
+                                id="theme-toggle-dart-icon"
+                                className="w-5 h-5 mb-1 text-gray-600 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+                                fill="currentColor"
+                                viewBox="0 0 23 23"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M24 3.875l-6 1.221 1.716 1.708-5.351 5.358-3.001-3.002-7.336 7.242 1.41 1.418 5.922-5.834 2.991 2.993 6.781-6.762 1.667 1.66 1.201-6.002zm0 16.125v2h-24v-20h2v18h22z"/>
+                            </svg>
+                        </button>
+
+                        )}
+
                         {/*STATISTIC BUTTON*/}
                         <button
                             onClick={handleOpenModal} // Open the modal on click
@@ -201,7 +232,16 @@ const HeaderBar = ({toggleTheme, showOptions}) => {
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
                 countStoredData={countStoredData}
+                showCloudStatistics={showCloudStatistics}
             />
+
+            {/* Include the StatisticsModal component */}
+            <StatisticsModal2
+                isOpen={isModalOpen2}
+                onClose={handleCloseModal2}
+                showCloudStatistic2s={showCloudStatistics2}
+            />
+
         </div>
     );
 };

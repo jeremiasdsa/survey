@@ -4,14 +4,14 @@ import { fireDb } from '../firebase';
 import { allowedUsers } from "../data";
 import {openDatabase} from "../storage";
 
-const hash = async (str) => {
-    const utf8 = new TextEncoder().encode(str);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', utf8);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray
-        .map((bytes) => bytes.toString(16).padStart(2, '0'))
-        .join('');
-}
+// const hash = async (str) => {
+//     const utf8 = new TextEncoder().encode(str);
+//     const hashBuffer = await crypto.subtle.digest('SHA-256', utf8);
+//     const hashArray = Array.from(new Uint8Array(hashBuffer));
+//     return hashArray
+//         .map((bytes) => bytes.toString(16).padStart(2, '0'))
+//         .join('');
+// }
 
 const handleLogin = (userData, onLogin) => {
     openDatabase()
@@ -49,7 +49,7 @@ const Login = ({ onLogin, theme }) => {
 
         let user;
         try {
-            if (allowedUsers[name] && allowedUsers[name].pass === await hash(pin)) {
+            if (allowedUsers[name] && allowedUsers[name].pass === pin) {
                 user = allowedUsers[name]
             } else {
                 const response = await getDoc(doc(fireDb, "users", name));
@@ -124,7 +124,7 @@ const Login = ({ onLogin, theme }) => {
                 </button>
 
                 <div className="mt-3 text-center text-xs font-mono text-zinc-900 dark:text-zinc-50">
-                    <h1>version 1.6</h1>
+                    <h1>version 2.0</h1>
                 </div>
             </form>
         </div>

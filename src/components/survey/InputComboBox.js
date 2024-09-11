@@ -1,23 +1,12 @@
 import React, { useState } from 'react';
+import {neighborhoods} from "../../data";
 
 const InputComboBox = ({ value, onChange, placeholder }) => {
     const [inputValue, setInputValue] = useState(value);
     const [isDropdownVisible, setDropdownVisible] = useState(false);
 
-    const neighborhoods = [
-        "Zona Rural",
-        "Centro",
-        "Freitas",
-        "São Judas",
-        "Gibão",
-        "Lagoa do Mato",
-        "Baixa Verde",
-        "Bela Vista",
-        "Brito Lyra",
-        "Padre Cícero",
-        "Alto da Colina",
-        "Flórida"
-    ].sort();
+    // Convert array to only use neighborhood names (removing the "goal" property for display purposes)
+    const neighborhoodNames = neighborhoods.map((neighborhood) => neighborhood.name).sort();
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -31,7 +20,7 @@ const InputComboBox = ({ value, onChange, placeholder }) => {
         setDropdownVisible(false);
     };
 
-    const filteredOptions = neighborhoods.filter((option) =>
+    const filteredOptions = neighborhoodNames.filter((option) =>
         option.toLowerCase().includes(inputValue.toLowerCase())
     );
 
