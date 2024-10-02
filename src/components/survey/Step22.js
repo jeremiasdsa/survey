@@ -1,5 +1,5 @@
 import React from 'react';
-import { mayorOptions } from '../../data';
+import { aVoidmayorOptions } from '../../data';
 import {useEffect} from "react";
 
 function toTitleCase(str) {
@@ -26,7 +26,7 @@ const Step22 = ({ aVoidMayorChoice, setAvoidMayorChoice }) => {
                 <p className="text-lg font-sans font-light text-gray-700 dark:text-gray-300 mb-6 ">
                     Entre esses candidatos, em quem você<span className='font-medium'> NAO </span>votaria?<span className='font-medium'> Quem NAO merece o seu voto?</span></p>
             <div className="grid grid-cols-2 gap-4">
-                {mayorOptions.slice().reverse().map((candidate, index) => (
+                {aVoidmayorOptions.slice().map((candidate, index) => (
                     <div
                         key={index}
                         className={`relative flex flex-col items-center w-28 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg ${

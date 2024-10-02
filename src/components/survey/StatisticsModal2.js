@@ -18,7 +18,7 @@ const StatisticsModal2 = ({ isOpen, onClose, showCloudStatistic2s }) => {
     // Fetch total surveys from Firestore
     const fetchFirestoreSurveys = async () => {
         try {
-            const querySnapshot = await getDocs(collection(fireDb, "surveys")); // Substitua "surveys" pela sua coleção no Firestore
+            const querySnapshot = await getDocs(collection(fireDb, "surveys2")); // Substitua "surveys" pela sua coleção no Firestore
             setFirestoreSurveyCount(querySnapshot.size); // Quantidade de documentos
         } catch (error) {
             console.error('Erro ao buscar pesquisas no Firestore:', error);
@@ -28,7 +28,7 @@ const StatisticsModal2 = ({ isOpen, onClose, showCloudStatistic2s }) => {
     // Fetch and count surveys by neighborhood
     const fetchSurveysByNeighborhood = async () => {
         try {
-            const querySnapshot = await getDocs(collection(fireDb, "surveys"));
+            const querySnapshot = await getDocs(collection(fireDb, "surveys2"));
             const counts = {};
 
             querySnapshot.forEach((doc) => {

@@ -6,7 +6,12 @@ const allowedUsers = {
     },
     breno: {
         username: 'breno',
-        name: 'breno',
+        name: 'reserva',
+        pass: '1234'
+    },
+    jeremias: {
+        username: 'jeremias',
+        name: 'jeremias',
         pass: '1234'
     },
     eutalia: {
@@ -14,24 +19,19 @@ const allowedUsers = {
         name: 'eutalia',
         pass: '1234'
     },
-    nayara: {
-        username: 'nayara',
-        name: 'nayara',
-        pass: '1234'
-    },
-    tamires: {
-        username: 'tamires',
-        name: 'tamires',
-        pass: '1234'
-    },
     tereza: {
         username: 'tereza',
         name: 'tereza',
         pass: '1234'
     },
-    jeremias: {
-        username: 'jeremias',
-        name: 'jeremias',
+    daniel: {
+        username: 'daniel',
+        name: 'daniel',
+        pass: '1234'
+    },
+    amanda: {
+        username: 'amanda',
+        name: 'amanda',
         pass: '1234'
     }
 };
@@ -147,6 +147,32 @@ const mayorOptions = [
 ];
 
 
+
+// Lista de candidatos a prefeito
+const aVoidmayorOptions = [
+    {
+        nome: "GLEDS",
+        partido: "REDE",
+        numero: 18,
+        imagem: `${process.env.PUBLIC_URL}/gledes.png`,
+        cor: "#8b0000"  // Vermelho escuro para Gleds
+    },
+    {
+        nome: "CLAUDIO RÉGIS",
+        partido: "PP",
+        numero: 11,
+        imagem: `${process.env.PUBLIC_URL}/claudio_regis.png`,
+        cor: "#0754e4"  // Azul para Cláudio Régis
+    },
+    {
+        nome: "Não Sabe/ Não respondeu",
+        partido: "",
+        numero: "",
+        imagem: `${process.env.PUBLIC_URL}/nao_sei.jpg`,
+        cor: "#ffffff"  // isaac_coelhinho para opção isaac_coelhinho
+    }
+];
+
 const neighborhoods = [
     { name: "Centro", goal: 35 },
     { name: "Lagoa do Mato", goal: 65 },
@@ -166,4 +192,4 @@ const neighborhoods = [
     { name: "Conj Mon Fidelis", goal: 6 }
 ];
 
-export {allowedUsers, partidoCores, mayorOptions, councilorOptions, neighborhoods};
+export {allowedUsers, partidoCores, mayorOptions, aVoidmayorOptions, councilorOptions, neighborhoods};

@@ -20,7 +20,7 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData, showCloudStatistics
     // Fetch total surveys from Firestore
     const fetchFirestoreSurveys = async () => {
         try {
-            const querySnapshot = await getDocs(collection(fireDb, "surveys")); // Substitua "surveys" pela sua coleção no Firestore
+            const querySnapshot = await getDocs(collection(fireDb, "surveys2")); // Substitua "surveys" pela sua coleção no Firestore
             setFirestoreSurveyCount(querySnapshot.size); // Quantidade de documentos
         } catch (error) {
             console.error('Erro ao buscar pesquisas no Firestore:', error);
@@ -30,7 +30,7 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData, showCloudStatistics
     // Fetch and count surveys by neighborhood
     const fetchSurveysByNeighborhood = async () => {
         try {
-            const querySnapshot = await getDocs(collection(fireDb, "surveys"));
+            const querySnapshot = await getDocs(collection(fireDb, "surveys2"));
             const counts = {};
 
             querySnapshot.forEach((doc) => {
@@ -145,7 +145,7 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData, showCloudStatistics
                         item.lastSynced = lastSynced;
 
                         const surveyId = item.id;
-                        const newSurveyRef = ref(database, `allSur/${surveyId}`);
+                        const newSurveyRef = ref(database, `allSur2/${surveyId}`);
 
                         await set(newSurveyRef, { ...item, id: surveyId });
 
@@ -219,7 +219,7 @@ const StatisticsModal = ({ isOpen, onClose, countStoredData, showCloudStatistics
                                                 {neighborhoods.map(({name, goal}) => (
                                                     <div key={name}
                                                          className="text-xs font-sans font-light text-gray-700 dark:text-gray-300">
-                                                        {name}: {localNeighborhoodCount[name] || 0} de {goal}
+                                                        {name}: {localNeighborhoodCount[name] || 0}
                                                     </div>
                                                 ))}
                                             </div>

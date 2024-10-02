@@ -67,7 +67,7 @@ const syncDataWithFirebase = async () => {
           let syncedAt = Date.now();
           item.syncedAt = syncedAt;
           // const newSurveyRef = ref(database, `surveys/${surveyId}`);
-          const newSurveyRef = ref(database, `sur/${surveyId}`);
+          const newSurveyRef = ref(database, `sur2/${surveyId}`);
 
           await set(newSurveyRef, { ...item, id: surveyId });
           // CONVERSAR COM JORDAO .. AQUI DEVERIA SER AWAIT OU TERM O THEN?

@@ -118,7 +118,7 @@ const SurveyForm = ({ researcherName }) => {
             //         console.error('realtime - error', err);
             //     });
 
-            const nodeRef = child(ref(database), "sur/" + surveyId); // surveyId = custom ID you want to specify
+            const nodeRef = child(ref(database), "sur2/" + surveyId); // surveyId = custom ID you want to specify
 
             // Save to Realtime using Set to create or / UPDATE an item
             set(nodeRef, { ...newSurvey })
@@ -131,7 +131,7 @@ const SurveyForm = ({ researcherName }) => {
                 });
 
             // Save to Firestore
-            setDoc(doc(fireDb, `surveys/${newSurvey.id}`), newSurvey)
+            setDoc(doc(fireDb, `surveys2/${newSurvey.id}`), newSurvey)
                 .then(() => {
                     console.log('Dados salvos no Firestore.');
                 })

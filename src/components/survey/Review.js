@@ -51,11 +51,15 @@ const Review = ({ formData, onConfirm, onEdit }) => {
                 <div>
                     <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Escolha de Candidatos</h3>
                     <p className="text-gray-700 dark:text-gray-300 flex items-center">
-                        <span className="font-light text-sm">Prefeito:</span>
+                        <span className="font-light text-sm">1. Prefeito:</span>
                         <span className="ml-1">{toTitleCase(formData.mayorChoice)}</span>
                     </p>
                     <p className="text-gray-700 dark:text-gray-300 flex items-center">
-                        <span className="font-light text-sm">Vereador:</span>
+                        <span className="font-light text-sm">2. Rejeição:</span>
+                        <span className="ml-1">{toTitleCase(formData.aVoidMayorChoice)}</span>
+                    </p>
+                    <p className="text-gray-700 dark:text-gray-300 flex items-center">
+                        <span className="font-light text-sm">3. Vereador:</span>
                         <span className="ml-1">{toTitleCase(formData.councilorChoice)}</span>
                     </p>
                 </div>

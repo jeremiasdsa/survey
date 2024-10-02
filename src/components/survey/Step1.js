@@ -91,11 +91,11 @@ const LocationQuestion = ({ formData, handleChange, isError }) => (
                 placeholder="Rua ou Nome da Zona Rural"
                 className="w-full p-3 text-sl border rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 value={formData.rua || ''}
-                onChange={(e) => handleChange('rua', e.target.value)}
-                // className={`w-full p-3 border ${isError && !formData.rua ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                onChange={(e) => handleChange('rua', e.target.value.trimStart())} // Remove espaços no início
+                onBlur={(e) => handleChange('rua', e.target.value.trim())} // Remove espaços no início e no fim ao perder o foco
             />
             {isError && !formData.rua && (
-                <p className="mt-0.5 text-sm font-medium text-green-600 ">Este campo é opcional.</p>
+                <p className="mt-0.5 text-sm font-medium text-green-600">Este campo é opcional.</p>
             )}
         </div>
     </div>
